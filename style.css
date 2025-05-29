@@ -16,6 +16,11 @@ body {
     position: relative;
     overflow: hidden;
     mask-image: url('mask.svg');
+    -webkit-mask-image: url('mask.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: 0;
+
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: 0;
