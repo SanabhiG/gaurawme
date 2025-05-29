@@ -1,70 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="A website created by Sanabhi Gauraw to showcase his skills as a programmer, engineer, and a learner."/>
-  <title>Sanabhi Gauraw</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      background: #f7f7f7;
-      color: #333;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-    h2 {
-      font-weight: normal;
-      color: #666;
-      margin-bottom: 2rem;
-    }
-    .btn {
-      background-color: #0077cc;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      margin: 1rem 0;
-      display: inline-block;
-    }
-    .btn:hover {
-      background-color: #005fa3;
-    }
-    .links a {
-      margin: 0 1rem;
-      text-decoration: none;
-      color: #0077cc;
-    }
-    .links a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>SVG Mask Example</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <h1>Sanabhi Gauraw</h1>
-  <h2>Software Developer | Tech Enthusiast</h2>
-
-  <p>Welcome to my personal website. You can download my CV below or reach out via the links.</p>
-
-  <a class="btn" href="Resume_SanabhiG.pdf" target="_blank">View My CV</a>
-
-  <div class="links">
-    <a href="https://github.com/SanabhiG" target="_blank">GitHub</a>
-    <a href="https://linkedin.com/in/sanabhi-gauraw" target="_blank">LinkedIn</a>
-    <a href="mailto:sanabhi@example.com">Email</a>
+  <div class="mask-container">
+    <div class="masked-content">
+      <h1>Hello, I am Sanabhi!</h1>
+      <p>This content is revealed using a circular SVG mask on hover.</p>
+    </div>
   </div>
-
 </body>
 </html>

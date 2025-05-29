@@ -15,25 +15,30 @@ body {
     height: 400px;
     position: relative;
     overflow: hidden;
-    mask-image: url('mask.svg');
+  
+    /* WebKit-specific */
     -webkit-mask-image: url('mask.svg');
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
     -webkit-mask-size: 0;
-
+  
+    /* Standard */
+    mask-image: url('mask.svg');
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: 0;
-    transition: mask-size 0.5s ease;
+  
+    transition: mask-size 0.5s ease, -webkit-mask-size 0.5s ease;
   }
   
   .mask-container:hover {
+    -webkit-mask-size: 150%;
     mask-size: 150%;
   }
   
   .masked-content {
     padding: 2rem;
-    background: #22c55e; /* green background */
+    background: #22cc55e0; /* greenish */
     height: 100%;
     box-sizing: border-box;
   }
