@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: #111;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .mask-container {
+    width: 600px;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    mask-image: url('mask.svg');
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: 0;
+    transition: mask-size 0.5s ease;
+  }
+  
+  .mask-container:hover {
+    mask-size: 150%;
+  }
+  
+  .masked-content {
+    padding: 2rem;
+    background: #22c55e; /* green background */
+    height: 100%;
+    box-sizing: border-box;
+  }
+  
