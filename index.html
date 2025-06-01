@@ -1,16 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>SVG Mask Example</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sanabhi Gauraw | Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div class="mask-container">
-    <div class="masked-content">
-      <h1>Hello, I am Sanabhi!</h1>
-      <p>This content is revealed using a circular SVG mask on hover.</p>
+
+  <header class="nav" id="main-header">
+    <h1>Sanabhi Gauraw</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  
+  <header class="banner">
+    <canvas id="dots-canvas"></canvas>
+    <div class="banner-content">
+      <h1>Hi, I'm Sanabhi.</h1>
+      <div class="social-boxes">
+        <a href="https://linkedin.com/in/yourprofile" target="_blank" class="social-box">
+          <i class="fab fa-linkedin"></i>
+          <span>LinkedIn</span>
+        </a>
+        <a href="mailto:your.email@gmail.com" class="social-box">
+          <i class="fas fa-envelope"></i>
+          <span>Email</span>
+        </a>
+        <a href="path/to/your/resume.pdf" target="_blank" class="social-box">
+          <i class="fas fa-file-pdf"></i>
+          <span>Resume</span>
+        </a>
+        <a href="https://github.com/yourusername" target="_blank" class="social-box">
+          <i class="fab fa-github"></i>
+          <span>GitHub</span>
+        </a>
+      </div>
     </div>
-  </div>
+  </header>
+
+  <main>
+    <!-- Rest of your existing content remains unchanged -->
+    <section id="about">
+      <h2>About Me</h2>
+      <p>
+        Hi! I'm a high school student passionate about coding, technology, and building cool projects. 
+        I enjoy learning new programming languages and improving my skills every day.
+      </p>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="project-list">
+        <div class="project">
+          <h3>Project One</h3>
+          <p>A brief description of your project, what technologies you used, and what you learned.</p>
+          <a href="#" target="_blank" rel="noopener">View project</a>
+        </div>
+        <div class="project">
+          <h3>Project Two</h3>
+          <p>A brief description of your project, what technologies you used, and what you learned.</p>
+          <a href="#" target="_blank" rel="noopener">View project</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <form action="mailto:your.email@example.com" method="POST" enctype="text/plain">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your Name" required />
+        
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="your.email@example.com" required />
+        
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Write me a message..." required></textarea>
+        
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Sanabhi Gauraw. All rights reserved.
+  </footer>
+
+  <script src="dots.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
