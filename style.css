@@ -5,8 +5,8 @@
 }
 
 body {
-  background-color: #000;
-  color: #0f0;
+  background-color: #453841;
+  color: #fa8072;
   line-height: 1.6;
   min-height: 100vh;
   display: flex;
@@ -19,7 +19,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #0f0;
+  border-bottom: 1px solid #fa8072
 }
 
 .nav h1 {
@@ -28,18 +28,35 @@ body {
   letter-spacing: 2px;
 }
 
-nav a {
+a {
   margin-left: 2rem;
   font-weight: 600;
   font-size: 1rem;
+  color: #fa8072;
   text-transform: uppercase;
+}
+
+a:active {
+  margin-left: 2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #B94E4E;
+  text-transform: uppercase;
+}
+
+a:hover {
+  color: #FF9999; /* light pink */
+}
+
+a:visited {
+  color: #D46A6A; /* muted salmon */
 }
 
 /* Banner with original styling + social buttons */
 .banner {
-  background: #0f0;
+  background: #fa8072;
   height: 400px;
-  color: black;
+  color: #413841;
   text-align: center;
   padding: 4rem 1rem;
   position: relative;
@@ -72,10 +89,10 @@ nav a {
   justify-content: center;
   width: 80px;
   height: 80px;
-  background-color: rgba(0, 0, 0, 0.7);
-  border: 1px solid #000;
+  background-color: #453841;
+  border: 1px solid #453841;
   border-radius: 10px;
-  color: #0f0;
+  color: #fa8072;
   text-decoration: none;
   transition: all 0.3s ease;
 }
@@ -83,7 +100,7 @@ nav a {
 .social-box:hover {
   background-color: rgba(0, 255, 0, 0.2);
   transform: translateY(-5px);
-  box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+  box-shadow: 0 0 15px #fa8072;
 }
 
 .social-box i {
@@ -122,7 +139,7 @@ section {
 section h2 {
   font-size: 1.8rem;
   margin-bottom: 1rem;
-  border-left: 4px solid #0f0;
+  border-left: 4px solid #fa8072;
   padding-left: 1rem;
 }
 
@@ -139,7 +156,7 @@ section h2 {
 }
 
 #projects .project {
-  border: 1px solid #0f0;
+  border: 1px solid #fa8072;
   padding: 1rem;
   border-radius: 6px;
   transition: background-color 0.3s ease;
@@ -160,7 +177,7 @@ footer {
   text-align: center;
   padding: 1rem 0;
   font-size: 0.9rem;
-  border-top: 1px solid #0f0;
+  border-top: 1px solid #fa8072;
 }
 
 /* Responsive */
@@ -178,4 +195,59 @@ footer {
     width: 70px;
     height: 70px;
   }
+}
+
+/* Base form styling */
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #fdfbfb; /* light gray-pink */
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Labels */
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #555;
+  font-weight: bold;
+}
+
+/* Inputs and textarea */
+form input,
+form textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.75rem;
+  background-color: #fff;
+  transition: border 0.3s, box-shadow 0.3s;
+  font-size: 1rem;
+}
+
+form input:focus,
+form textarea:focus {
+  border-color: #fa8072; /* salmon focus */
+  box-shadow: 0 0 6px rgba(250, 128, 114, 0.3);
+  outline: none;
+}
+
+/* Submit button */
+form button[type="submit"] {
+  background-color: #fa8072; /* salmon */
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+  background-color: #e66c5c; /* darker salmon */
 }
