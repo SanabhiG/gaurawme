@@ -85,26 +85,32 @@
       </form>
 
       <script>
-      document.getElementById("contact-form").addEventListener("submit", function(e) {
-        e.preventDefault();
-        const data = {
-          name: document.getElementById("name").value,
-          email: document.getElementById("email").value,
-          message: document.getElementById("message").value
-        };
-        fetch("https://script.google.com/macros/s/AKfycby7qOcJ_DfsENbYSwYfufyy-Gxhxk97XbpSQeeiXwwap4hn-8bYV2037eqbg_u7ZW2N0w/exec", {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }).then(res => {
-          if (res.ok) alert("Message sent!");
-          else alert("Error occurred.");
-        });
-      });
-      </script>
+        document.querySelector("form").addEventListener("submit", function (e) {
+          e.preventDefault(); // Stop default form behavior
 
+          const data = {
+            name: document.querySelector("#name").value,
+            email: document.querySelector("#email").value,
+            message: document.querySelector("#message").value,
+          };
+
+          fetch("YOUR_WEB_APP_URL", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .then((response) => {
+              alert("Message sent!");
+            })
+            .catch((err) => {
+              alert("Error sending message.");
+              console.error(err);
+            });
+        });
+      </script>
     </section>
   </main>
 
