@@ -127,6 +127,7 @@ a:visited { color: #D46A6A; } /* Muted salmon for visited links */
   justify-content: center;
   width: 80px;
   height: 80px;
+  border-radius: 5px; 
   background-color: #453841; /* Dark purple background */
  /* Salmon icon/text */
   text-decoration: none;
@@ -240,8 +241,7 @@ form label {
 }
 
 /* Form inputs and textarea */
-form input,
-form textarea {
+form input, form textarea {
   width: 100%;
   padding: 0.75rem 1rem;
   margin-bottom: 1.5rem;
@@ -253,8 +253,7 @@ form textarea {
 }
 
 /* Input focus states */
-form input:focus,
-form textarea:focus {
+form input:focus, form textarea:focus {
   border-color: #fa8072; /* Salmon focus */
   box-shadow: 0 0 6px rgba(250, 128, 114, 0.3);
   outline: none;
@@ -311,6 +310,7 @@ footer {
   .social-box {
     width: 70px;
     height: 70px;
+    border-radius: 50px;
   }
 }
 
@@ -332,32 +332,50 @@ footer {
   perspective: 1000px;
 }
 
-.carousel-container {
-  overflow: hidden;
-  width: 100%;
-}
-
-.carousel {
+#carousel-track {
   display: flex;
-  gap: 2rem;
-  padding: 2rem;
-  transform-style: preserve-3d;
-  transition: transform 0.5s ease-in-out;
+  gap: 20px; /* space between items */
 }
 
-.carousel img {
-  width: 300px;
-  height: 200px;
+.carousel-item {
+  display: flex;
+  flex-direction: column;
+  width: 300px; /* fixed width, can adjust */
+  text-decoration: none; /* remove underline from links */
+  color: #222; /* dark text */
+  background-color: #f9f9f9; /* light background */
   border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-  transform: rotateY(-15deg);
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.carousel a:hover img {
-  transform: rotateY(0deg) scale(1.05);
-  box-shadow: 0 0 30px #fa8072;
+.carousel-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
+
+.carousel-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  display: block;
+}
+
+.caption {
+  padding: 12px 16px;
+  font-size: 1rem;
+  background-color: #ffffff;
+  color: #333333;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  box-sizing: border-box;
+  text-align: center;
+  user-select: none;
+}
+
 
 .carousel-btn {
   position: absolute;

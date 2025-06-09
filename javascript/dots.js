@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
       this.reset();
       this.size = Math.random() * 3 + 1;
       this.baseSize = this.size;
-      this.color = '#000'; // Default green color
+      this.color = '#413841'; 
     }
     
     reset() {
