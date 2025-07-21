@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Blog</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background-color: #fa8072;
+      color: #000;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: #fa8072;
+    }
+
+    .featured {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .featured .category {
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+    }
+
+    .featured h1 {
+      font-size: 36px;
+      margin: 10px 0;
+    }
+
+    .featured .byline {
+      text-transform: uppercase;
+      font-size: 12px;
+      color: #fa8072;
+      margin-bottom: 20px;
+    }
+
+    .featured img {
+      width: 100%;
+      max-height: 450px;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    .featured p {
+      font-size: 16px;
+      color: #fa8072;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .featured .read-more {
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 1px;
+      display: inline-block;
+      border-bottom: 1px solid #000;
+    }
+
+    .post {
+      display: flex;
+      align-items: flex-start;
+      gap: 30px;
+      margin-bottom: 60px;
+      border-bottom: 3px solid #453841;
+      padding-bottom: 40px;
+    }
+
+    .post img {
+      width: 250px;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .post h2 {
+      margin-top: 0;
+      font-size: 28px;
+    }
+
+    .post-category {
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
+    }
+
+    .post-content {
+      flex: 1;
+    }
+
+    .read-more {
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 1px;
+      margin-top: 15px;
+      display: inline-block;
+      border-bottom: 1px solid #000;
+    }
+
+    .older-posts {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 1px;
+      border-top: 1px solid #453841;
+      border-width: 3px;
+      padding-top: 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="featured">
+      <div class="category">Miscellaneous</div>
+      <h1>Currently</h1>
+      <div class="byline">By Erin | 05.31.2025</div>
+      <img src="https://via.placeholder.com/800x400" alt="Featured image" />
+      <p>
+        We finish <em>The Hobbit</em>. We bring home a farm mutt called Louie, supply dozens of lone socks for his milk teeth. I drive Ken to the airport at 6am, an errand that feels more familiar than either of us want it to. The kids and I attend six weeks’ worth of expected celebrations solo – graduations, birthday brunches, baby showers – and try to represent well. Neighbors come for trampoline feuds, hurl water balloon bombs by the dozen. I fix our oven.
+      </p>
+      <a class="read-more" href="currently.html">Read More</a>
+    </div>
+
+    <!-- Post 1 -->
+    <div class="post">
+      <img src="https://via.placeholder.com/250x250" alt="Placeholder image 1" />
+      <div class="post-content">
+        <div class="post-category">Projects</div>
+        <h2>The Social Media-Free Creative</h2>
+        <p>Shortly after publishing this post, my inbox became a beautiful jungle of sorts. I heard from hundreds of writers, creatives, and artists...</p>
+        <a class="read-more" href="the-social-media-free-creative.html">Read More</a>
+      </div>
+    </div>
+
+    <!-- Post 2 -->
+    <div class="post">
+      <img src="https://via.placeholder.com/250x250" alt="Placeholder image 2" />
+      <div class="post-content">
+        <div class="post-category">Life</div>
+        <h2>Finding Silence in a Noisy World</h2>
+        <p>It started with a single moment of quiet. One that unfolded into a practice, then a lifestyle. Silence isn’t emptiness...</p>
+        <a class="read-more" href="finding-silence-in-a-noisy-world.html">Read More</a>
+      </div>
+    </div>
+
+    <!-- Post 3 -->
+    <div class="post">
+      <img src="https://via.placeholder.com/250x250" alt="Placeholder image 3" />
+      <div class="post-content">
+        <div class="post-category">Thoughts</div>
+        <h2>Notes on Minimalism and Enough</h2>
+        <p>Minimalism isn’t about having less. It’s about making space — for meaning, for stillness, for intention...</p>
+        <a class="read-more" href="notes-on-minimalism-and-enough.html">Read More</a>
+      </div>
+    </div>
+
+    <!-- Post 4 -->
+    <div class="post">
+      <img src="https://via.placeholder.com/250x250" alt="Placeholder image 4" />
+      <div class="post-content">
+        <div class="post-category">Projects</div>
+        <h2>Creative Burnout and the Way Back</h2>
+        <p>There’s a special kind of exhaustion that comes from doing what you love under pressure. This is what I learned...</p>
+        <a class="read-more" href="creative-burnout-and-the-way-back.html">Read More</a>
+      </div>
+    </div>
+
+    <!-- Post 5 -->
+    <div class="post">
+      <img src="https://via.placeholder.com/250x250" alt="Placeholder image 5" />
+      <div class="post-content">
+        <div class="post-category">Reflections</div>
+        <h2>On Letting Go of Productivity</h2>
+        <p>I once believed that rest had to be earned. Now I believe it’s sacred. Productivity is not worth worshipping at the cost of wellbeing...</p>
+        <a class="read-more" href="on-letting-go-of-productivity.html">Read More</a>
+      </div>
+    </div>
+
+    <div class="older-posts">Older Posts</div>
+  </div>
+</body>
+</html>

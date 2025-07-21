@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+  <!-- Basic Meta Tags -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sanabhi Gauraw | Portfolio</title>
   
-
+  <!-- External Resources -->
+  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+  <!-- Main CSS file -->
   <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
+  <!-- ==================== -->
+  <!-- === Main Header === -->
+  <!-- ==================== -->
   <header class="nav" id="main-header">
     <h1>Sanabhi Gauraw</h1>
+    <!-- Main Navigation -->
     <nav>
+      <a href="gaurawme/blog/blogcentral.html">Blog</a>
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
   
+  <!-- ==================== -->
+  <!-- === Hero Banner === -->
+  <!-- ==================== -->
   <header class="banner">
     <!-- Animated background canvas -->
     <canvas id="dots-canvas"></canvas>
@@ -29,9 +38,9 @@
     <div class="banner-content">
       <h1>Hi, I'm Sanabhi.</h1>
       
-      <!-- Social media links -->
+      <!-- Social Media Links Container -->
       <div class="social-boxes">
-        <a href="https://www.linkedin.com/in/sanabhi-gauraw-b8ab4b265" target="_blank" class="social-box">
+        <a href="https://www.linkedin.com/in/sanabhi-gauraw-b8ab4b265" target="_blank" rel="noopener noreferrer" class="social-box">
           <i class="fab fa-linkedin"></i>
           <span>LinkedIn</span>
         </a>
@@ -39,11 +48,11 @@
           <i class="fas fa-envelope"></i>
           <span>Email</span>
         </a>
-        <a href="/gaurawme/resume/resume.html" target="_blank" class="social-box">
+        <a href="/gaurawme/resume/resume.html" target="_blank" rel="noopener noreferrer" class="social-box">
           <i class="fas fa-file-pdf"></i>
           <span>Resume</span>
         </a>
-        <a href="https://github.com/SanabhiG" target="_blank" class="social-box">
+        <a href="https://github.com/SanabhiG" target="_blank" rel="noopener noreferrer" class="social-box">
           <i class="fab fa-github"></i>
           <span>GitHub</span>
         </a>
@@ -51,137 +60,115 @@
     </div>
   </header>
 
-  <section id="carousel" style="margin-top: 4rem;">
+  <!-- ==================== -->
+  <!-- === Image Carousel === -->
+  <!-- ==================== -->
+  <section id="carousel" class="section-with-header">
     <div class="section-header">
       <h2>Gallery</h2>
     </div>
-      <div class="carousel-wrapper">
-        <button class="carousel-btn left">&#10094;</button>
-        <div id="carousel-track" class="carousel">
-          <a href="gaurawme/gallery/image1.html" class="carousel-item">
-            <img src="img1.jpg" alt="Image 1" />
-            <div class="caption">Caption for Image 1</div>
-          </a>
-          <a href="gaurawme/gallery/image2.html" class="carousel-item">
-            <img src="img2.jpg" alt="Image 2" />
-            <div class="caption">Caption for Image 2</div>
-          </a>
-          <a href="gaurawme/gallery/image3.html" class="carousel-item">
-            <img src="img3.jpg" alt="Image 3" />
-            <div class="caption">Caption for Image 3</div>
-          </a>
-          <a href="gaurawme/gallery/image4.html" class="carousel-item">
-            <img src="img4.jpg" alt="Image 4" />
-            <div class="caption">Caption for Image 4</div>
-          </a>
-          <a href="gaurawme/gallery/image5.html" class="carousel-item">
-            <img src="img5.jpg" alt="Image 5" />
-            <div class="caption">Caption for Image 5</div>
-          </a>
-          <a href="gaurawme/gallery/image6.html" class="carousel-item">
-            <img src="img6.jpg" alt="Image 6" />
-            <div class="caption">Caption for Image 6</div>
-          </a>
-          <a href="gaurawme/gallery/image7.html" class="carousel-item">
-            <img src="img7.jpg" alt="Image 7" />
-            <div class="caption">Caption for Image 7</div>
-          </a>
-        </div>        
-        <button class="carousel-btn right">&#10095;</button>
-      </div>
+    <div class="carousel-wrapper">
+      <button class="carousel-btn left" aria-label="Previous image">&#10094;</button>
+      <div id="carousel-track" class="carousel">
+        <!-- Carousel Items - Consider loading these dynamically -->
+        <a href="gaurawme/gallery/image1.html" class="carousel-item">
+          <img src="img1.jpg" alt="Description of Image 1" loading="lazy" />
+          <div class="caption">Caption for Image 1</div>
+        </a>
+        <a href="gaurawme/gallery/image2.html" class="carousel-item">
+          <img src="img2.jpg" alt="Description of Image 2" loading="lazy" />
+          <div class="caption">Caption for Image 2</div>
+        </a>
+        <!-- Additional images would go here -->
+      </div>        
+      <button class="carousel-btn right" aria-label="Next image">&#10095;</button>
     </div>
   </section>
 
+  <!-- ==================== -->
+  <!-- === Main Content === -->
+  <!-- ==================== -->
   <main>
-
-    <section id="about">
+    <!-- About Section -->
+    <section id="about" class="content-section">
       <h2>About Me</h2>
       <p>
         Hi! I'm a high school student passionate about coding, technology, and building cool projects. 
         I enjoy learning new programming languages and improving my skills every day.
       </p>
+      <!-- Consider adding more personal details or skills here -->
     </section>
 
-    <section id="projects">
+    <!-- Projects Section -->
+    <section id="projects" class="content-section">
       <h2>Projects</h2>
       <div class="project-list">
         <!-- Project 1 -->
-        <div class="project">
+        <article class="project">
           <h3>Project One</h3>
           <p>A brief description of your project, what technologies you used, and what you learned.</p>
-          <a href="#" target="_blank" rel="noopener">View project</a>
-        </div>
+          <div class="project-meta">
+            <span class="tech-used">HTML, CSS, JavaScript</span>
+            <a href="#" target="_blank" rel="noopener" class="project-link">View project</a>
+          </div>
+        </article>
         
         <!-- Project 2 -->
-        <div class="project">
+        <article class="project">
           <h3>Project Two</h3>
           <p>A brief description of your project, what technologies you used, and what you learned.</p>
-          <a href="#" target="_blank" rel="noopener">View project</a>
-        </div>
+          <div class="project-meta">
+            <span class="tech-used">Python, Flask</span>
+            <a href="gaurawme/sim.html" target="_blank" rel="noopener" class="project-link">View project</a>
+          </div>
+        </article>
       </div>
     </section>
 
-    <section id="contact">
-      <h2>Contact</h2>
+    <!-- Contact Section -->
+    <section id="contact" class="content-section">
+      <h2>Get In Touch</h2>
       
       <!-- Contact Form -->
-      <form id="contact-form">
-        <!-- Name Field -->
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required />
+      <form id="contact-form" class="contact-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required placeholder="Your name" />
+        </div>
 
-        <!-- Email Field -->
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required />
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="your.email@example.com" />
+        </div>
 
-        <!-- Message Field -->
-        <label for="message">Message</label>
-        <textarea id="message" name="message" required></textarea>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required placeholder="What would you like to say?"></textarea>
+        </div>
 
-        <!-- Submit Button -->
-        <button type="submit">Send</button>
+        <button type="submit" class="submit-btn">Send Message</button>
       </form>
-
-      <!-- Form Submission Script -->
-      <script>
-        document.querySelector("form").addEventListener("submit", function (e) {
-          e.preventDefault(); // Prevent default form submission
-
-          // Collect form data
-          const data = {
-            name: document.querySelector("#name").value,
-            email: document.querySelector("#email").value,
-            message: document.querySelector("#message").value,
-          };
-
-          // Send data to Google Apps Script endpoint
-          fetch("https://script.google.com/macros/library/d/1Qxlb4DHzCgraCmu-pygjiIavAQVnjS7A-hVctA8XDiWkH9Or6fQc_mQM/1", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-            .then((res) => res.json())
-            .then((response) => {
-              alert("Message sent!");
-            })
-            .catch((err) => {
-              alert("Error sending message.");
-              console.error(err);
-            });
-        });
-      </script>
     </section>
-
   </main>
 
-  <footer>
-    &copy; 2025 Sanabhi Gauraw. All rights reserved.
+  <!-- ==================== -->
+  <!-- === Footer === -->
+  <!-- ==================== -->
+  <footer class="site-footer">
+    <p>&copy; <span id="current-year">2025</span> Sanabhi Gauraw. All rights reserved.</p>
+    <!-- Consider adding footer navigation or social links -->
   </footer>
 
-  <script src="/javascript/dots.js"></script>
-  <script src="/javascript/script.js"></script>
-  <script src="/javascript/carousel.js"></script>
+  <!-- ==================== -->
+  <!-- === JavaScript === -->
+  <!-- ==================== -->
+  <!-- Dots Animation -->
+  <script src="/js/dots.js"></script>
+  <!-- Main Scripts -->
+  <script src="/js/script.js"></script>
+  <!-- Carousel Functionality -->
+  <script src="/js/carousel.js"></script>
+  <!-- Contact Form Handler -->
+  <script src="/js/contactform.js"> </script>
 </body>
 </html>
