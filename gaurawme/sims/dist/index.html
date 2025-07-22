@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Physics Drag Simulator</title>
+
+    <script type="module" crossorigin src="./assets/index-BDveHugF.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BPIckzUL copy.css">
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'JetBrains Mono', monospace;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        color: #e0e0e0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 2rem;
+      }
+
+      header {
+        font-size: 2.4rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #00ffc8;
+        text-shadow: 0 0 8px #00ffc8aa;
+        margin-bottom: 2rem;
+        user-select: none;
+        animation: glow 2.5s ease-in-out infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 8px #00ffc8aa, 0 0 15px #00ffc8bb, 0 0 25px #00ffc8cc;
+        }
+        to {
+          text-shadow: 0 0 12px #00ffc8cc, 0 0 20px #00ffc8dd, 0 0 35px #00ffc8ee;
+        }
+      }
+
+      #root {
+        width: 100%;
+        max-width: 960px;
+        aspect-ratio: 16 / 9;
+        border: 3px solid #00ffc8;
+        border-radius: 12px;
+        box-shadow: 0 0 20px #00ffc8cc;
+        background: #122b34cc;
+        overflow: hidden;
+        position: relative;
+      }
+
+      footer {
+        margin-top: 3rem;
+        font-size: 0.9rem;
+        color: #55ffaa;
+        user-select: none;
+        text-align: center;
+      }
+
+      a {
+        color: #00ffc8;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Physics Drag Simulator</header>
+    <div id="root"></div>
+    <footer>
+      Developed by <a href="https://github.com/SanabhiG" target="_blank" rel="noopener noreferrer">Sanabhi Gauraw</a> &mdash; Powered by React, Three.js & Leva
+    </footer>
+  </body>
+</html>
