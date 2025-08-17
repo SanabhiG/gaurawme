@@ -34,10 +34,11 @@
   <header class="banner">
     <!-- Animated background canvas -->
     <canvas id="dots-canvas"></canvas>
-    
+
     <div class="banner-content">
-      <h1>Hi, I'm Sanabhi.</h1>
-      
+      <h1>Hi, I'm <span style="color:#000000;">Sanabhi</span>.</h1>
+      <p class="tagline" id="typed-text"></p>
+
       <!-- Social Media Links Container -->
       <div class="social-boxes">
         <a href="https://www.linkedin.com/in/sanabhi-gauraw-b8ab4b265" target="_blank" rel="noopener noreferrer" class="social-box">
@@ -59,6 +60,53 @@
       </div>
     </div>
   </header>
+
+  <script>
+    const texts = [
+      "Physics Researcher.",
+      "Robotics Engineer.",
+      "Maker.",
+      "Problem Solver."
+    ];
+
+    let count = 0;
+    let i = 0;
+    let currentText = "";
+    let isDeleting = false;
+    const speed = 100; // typing speed
+
+    function typeWriter() {
+      const typedText = document.getElementById("typed-text");
+
+      if (count === texts.length) {
+        count = 0; // loop back
+      }
+
+      currentText = texts[count];
+
+      if (isDeleting) {
+        typedText.innerHTML = currentText.substring(0, i--);
+      } else {
+        typedText.innerHTML = currentText.substring(0, i++);
+      }
+
+      let typingSpeed = isDeleting ? speed / 2 : speed;
+
+      if (!isDeleting && i === currentText.length) {
+        typingSpeed = 1500; // pause before deleting
+        isDeleting = true;
+      } else if (isDeleting && i === 0) {
+        isDeleting = false;
+        count++;
+        typingSpeed = 500; // pause before typing new word
+      }
+
+      setTimeout(typeWriter, typingSpeed);
+    }
+
+    window.onload = typeWriter;
+  </script>
+
 
   <!-- ==================== -->
   <!-- === Image Carousel === -->
@@ -187,7 +235,7 @@
   <!-- === Footer === -->
   <!-- ==================== -->
   <footer class="site-footer">
-    <p>&copy; <span id="current-year">2025</span> Sanabhi Gauraw. All rights reserved.</p>
+    <p>Contact my Discord! schwifty@3661</p>
     <!-- Consider adding footer navigation or social links -->
   </footer>
 
