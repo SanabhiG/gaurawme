@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sanabhi Gauraw | Maker Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+      :root {
+        --neon-teal: #00ffc8;
+        --cosmic-purple: #6e00ff;
+        --deep-space: #0a192f;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'JetBrains Mono', monospace;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        color: #e0e0e0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 1rem;
+      }
+
+      header {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2.8rem;
+        text-align: center;
+        letter-spacing: 0.2em;
+        color: var(--neon-teal);
+        text-shadow: 0 0 12px var(--neon-teal);
+        margin-bottom: 0.5rem;
+      }
+
+      .subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        margin-bottom: 3rem;
+        color: rgba(200, 255, 255, 0.8);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        width: 100%;
+        max-width: 1100px;
+      }
+
+      .card {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(0, 255, 200, 0.25);
+        border-radius: 16px;
+        box-shadow: 0 0 20px rgba(0, 255, 200, 0.15);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 0 25px rgba(0, 255, 200, 0.35);
+      }
+
+      .card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+
+      .card-content {
+        padding: 1.2rem;
+        flex: 1;
+      }
+
+      .card-content h2 {
+        font-size: 1.4rem;
+        margin-bottom: 0.6rem;
+        color: var(--neon-teal);
+        text-shadow: 0 0 6px var(--neon-teal);
+      }
+
+      .card-content p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: rgba(220, 240, 240, 0.85);
+        margin-bottom: 1rem;
+      }
+
+      .card-content a {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--neon-teal);
+        border-radius: 8px;
+        color: var(--neon-teal);
+        text-decoration: none;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      .card-content a:hover {
+        background: var(--neon-teal);
+        color: #0a192f;
+      }
+
+      footer {
+        margin-top: 3rem;
+        font-size: 0.9rem;
+        color: rgba(200, 255, 200, 0.6);
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Maker Portfolio</header>
+    <div class="subtitle">Projects by Sanabhi Gauraw</div>
+
+    <main class="grid">
+      <!-- Example card 1 -->
+      <div class="card">
+        <img src="preview-drag.png" alt="Drag Force Simulator Screenshot">
+        <div class="card-content">
+          <h2>Drag Force Simulator</h2>
+          <p>An interactive simulation exploring quadratic drag, gravity, and terminal velocity. Includes a video explainer and equations.</p>
+          <a href="/gaurawme/sims/dist/drag_sim.html" target="_blank">Launch App</a>
+        </div>
+      </div>
+
+      <!-- Example card 2 -->
+      <div class="card">
+        <img src="preview-robotics.png" alt="Robotics Project Screenshot">
+        <div class="card-content">
+          <h2>Electric Flux Simulator</h2>
+          <p>A web-based robotics control interface built with Three.js. Lets users simulate arm kinematics in 3D.</p>
+          <a href="/gaurawme/sims/dist/eflux_sim.html" target="_blank">Launch App</a>
+        </div>
+      </div>
+
+      <!-- Add more cards for each project -->
+    </main>
+  </body>
+</html>
