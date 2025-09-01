@@ -15,11 +15,13 @@
     
     <style>
       :root {
-        --neon-teal: #00ffc8;
-        --deep-space: #0a192f;
-        --cosmic-purple: #6e00ff;
+        --primary-color: #750014; /* your accent */
+        --bg-color: #f5f5f5;      /* light, professional background */
+        --card-bg: #ffffff;
+        --text-color: #1a1a1a;
+        --text-muted: #555555;
       }
-      
+
       * {
         box-sizing: border-box;
         margin: 0;
@@ -28,11 +30,8 @@
 
       body {
         font-family: 'JetBrains Mono', monospace;
-        background: 
-          radial-gradient(circle at 20% 30%, var(--cosmic-purple), transparent 40%),
-          radial-gradient(circle at 80% 70%, var(--neon-teal), transparent 40%),
-          linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-        color: #e0e0e0;
+        background: var(--bg-color);
+        color: var(--text-color);
         min-height: 100vh;
         display: flex;
         flex-direction: column;
@@ -52,23 +51,20 @@
 
       header {
         font-family: 'Orbitron', sans-serif;
-        font-size: 2.8rem;
-        font-weight: 500;
-        letter-spacing: 0.2em;
+        font-size: 2.4rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: var(--neon-teal);
-        text-shadow: 0 0 8px var(--neon-teal);
-        user-select: none;
-        animation: pulse 3s ease-in-out infinite;
+        color: var(--primary-color);
         text-align: center;
         margin-bottom: 1rem;
+        /* subtle pulse for attention without harsh glow */
+        animation: pulse 4s ease-in-out infinite;
       }
 
-      .fullscreen-prompt {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 1.2rem;
-        text-align: center;
-        margin-bottom: 2rem;
+      @keyframes pulse {
+        0%, 100% { opacity: 0.95; }
+        50% { opacity: 1; }
       }
 
       .sim-summary {
@@ -76,39 +72,28 @@
         max-width: 900px;
         padding: 1.5rem 2rem;
         margin-bottom: 2rem;
-        background: rgba(0, 0, 0, 0.3);
-        border: 1px solid rgba(0, 255, 200, 0.2);
+        background: var(--card-bg);
         border-radius: 12px;
-        box-shadow: 0 0 12px rgba(0, 255, 200, 0.15);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         font-size: 1.05rem;
         line-height: 1.6;
+        color: var(--text-color);
       }
 
       .sim-summary h1 {
         font-size: 1.6rem;
-        color: var(--neon-teal);
+        color: var(--primary-color);
         margin-bottom: 0.75rem;
-        text-shadow: 0 0 6px var(--neon-teal);
-      }
-
-
-      @keyframes pulse {
-        0%, 100% { opacity: 0.9; text-shadow: 0 0 8px var(--neon-teal); }
-        50% { opacity: 1; text-shadow: 0 0 20px var(--neon-teal); }
       }
 
       .sim-container {
         width: 100%;
         max-width: 1200px;
         height: 80vh;
-        min-height: 630px; /* optional */
-        border: 2px solid var(--neon-teal);
+        min-height: 630px;
         border-radius: 16px;
-        box-shadow: 
-          0 0 20px var(--neon-teal),
-          inset 0 0 20px rgba(0, 255, 200, 0.2);
-        background: rgba(18, 43, 52, 0.6);
-        backdrop-filter: blur(4px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        background: var(--card-bg);
         overflow: hidden;
         position: relative;
         transition: all 0.3s ease;
@@ -119,21 +104,17 @@
         width: 100%;
         max-width: 1000px;
         padding: 1rem;
-        border-radius: 16px;
-        background: rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(4px);
-        border: 1px solid rgba(0, 255, 200, 0.2);
-        box-shadow: 0 0 20px rgba(0, 255, 200, 0.15);
+        border-radius: 12px;
+        background: var(--card-bg);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         margin-bottom: 2rem;
         text-align: center;
       }
 
       .video-glow-wrapper {
         position: relative;
-        padding-top: 56.25%; /* 16:9 aspect ratio */
-        border: 2px solid var(--neon-teal);
-        border-radius: 16px;
-        box-shadow: 0 0 20px var(--neon-teal);
+        padding-top: 56.25%; /* 16:9 */
+        border-radius: 12px;
         overflow: hidden;
       }
 
@@ -147,11 +128,9 @@
       }
 
       .video-caption {
-        margin-top: 1rem;
+        margin-top: 0.8rem;
         font-size: 1rem;
-        color: rgba(200, 255, 255, 0.75);
-        font-family: 'JetBrains Mono', monospace;
-        text-shadow: 0 0 8px rgba(0, 255, 200, 0.4);
+        color: var(--text-muted);
       }
 
       footer {
@@ -161,8 +140,7 @@
         width: 100%;
         margin-top: 2rem;
         font-size: 0.9rem;
-        color: rgba(85, 255, 170, 0.7);
-        user-select: none;
+        color: var(--text-muted);
         text-align: center;
         letter-spacing: 0.05em;
       }
@@ -174,7 +152,7 @@
       }
 
       footer a {
-        color: var(--neon-teal);
+        color: var(--primary-color);
         text-decoration: none;
         transition: all 0.3s ease;
         position: relative;
@@ -187,7 +165,7 @@
         left: 0;
         width: 0;
         height: 1px;
-        background: var(--neon-teal);
+        background: var(--primary-color);
         transition: width 0.3s ease;
       }
 
@@ -197,15 +175,16 @@
 
       /* Fullscreen symbol styling */
       .fullscreen-symbol {
-        font-size: 3rem;
+        font-size: 2.5rem;
         margin: 1rem 0;
         animation: bounce 2s infinite;
         cursor: pointer;
+        color: var(--primary-color);
       }
 
       @keyframes bounce {
         0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
+        50% { transform: translateY(-6px); }
       }
 
       /* Floating particles background */
@@ -221,7 +200,7 @@
 
       .particle {
         position: absolute;
-        background: rgba(0, 255, 200, 0.5);
+        background: rgba(117,0,20,0.5);
         border-radius: 50%;
         animation: float linear infinite;
       }
