@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simulating the Laws of Motion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fa8072,#ad584f);
+      margin: 0;
+      padding: 2rem;
+      color: #222;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      text-align: center;
+      background: linear-gradient(to right,#fa8072, rgba(250, 128, 114, 0.6));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      border-radius: 12px;
+      margin: 1rem auto;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    p {
+      line-height: 1.7;
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 1.4rem;
+    }
+
+    footer {
+      margin-top: 4rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Simulating the Laws of Motion</h1>
+    <img src="https://via.placeholder.com/800x400" alt="Lagrangian simulation demo">
+    <p>For my MIT Maker Portfolio, I wanted to go beyond theoretical abstraction. My passion for physics met my interest in computational systems as I embarked on a project to simulate Lagrangian mechanics in real-time. I designed an engine that doesn't merely crunch numbers—it reveals the beauty of equations in motion. I wanted to replicate how pendulums swing, masses bounce, and links rotate in elegant synchrony—not through simple Newtonian F=ma but by deriving them using Euler-Lagrange equations dynamically based on system inputs.</p>
+    <p>From the ground up, I built a JavaScript-based symbolic computation engine. Users could define kinetic and potential energy expressions for systems—say, a double pendulum—and my engine would symbolically differentiate and solve the governing equations. To render math, I embedded MathJax to allow user input with LaTeX-style syntax, and all visuals were handled using HTML5 Canvas with interpolation for smooth trajectories. Realizing how finicky numerical solvers could be, I iterated multiple Runge-Kutta methods and learned about damping, stiffness, and step-size control.</p>
+    <p>This simulator wasn't meant to be just a sandbox for play—it’s also a learning tool. I deployed it for demos at my physics club, where younger students could visualize how a change in energy expression modified real motion. I built custom modules for rigid body constraints and added real-time overlays with annotations, making even chaotic systems (like the triple pendulum) digestible.</p>
+    <p>Through this project, I didn’t just reinforce my understanding of classical mechanics—I leveled up in algorithmic thinking, symbolic mathematics, and UI/UX for scientific tools. This blend of physics and engineering, powered by code, is what I dream of continuing at institutions like MIT.</p>
+  </div>
+  <footer>&copy; 2025 Sanabhi Gauraw. All rights reserved.</footer>
+</body>
+</html>

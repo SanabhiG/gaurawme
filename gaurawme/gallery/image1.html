@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ultrasound Research</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- AOS (Animate on Scroll) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Chart.js for graph -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #4FD1C5, #0a192f);
+      margin: 0;
+      padding: 2rem;
+      color: #222;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 2.4rem;
+      text-align: center;
+      background: linear-gradient(to left, #0a192f, #4FD1C5);
+      -webkit-text-fill-color: transparent;
+    }
+    ul {
+      margin-top: 2rem;
+      list-style: none;
+      padding: 0;
+    }
+    ul li {
+      font-size: 1.1rem;
+      background: #f0f4f8;
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+    }
+    ul li i {
+      margin-right: 0.8rem;
+      color: #0a192f;
+    }
+    footer {
+      margin-top: 4rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" data-aos="fade-up">
+    <h1>Ultrasound-Based Elastography</h1>
+    
+    <img src="../../assets/11_SF_BRD.jpg" alt="Ultrasound Graph">
+
+    <p style="text-align: center; font-size: 1.1rem; margin-top: 1rem;">
+      <em>Quantitative analysis of acoustic pulse propagation in glycerin-water mixtures using EBME.</em>
+    </p>
+
+    <ul>
+      <li><i class="fas fa-database"></i>Collected over<strong> 200 acoustic datasets </strong></li>
+      <li><i class="fas fa-flask"></i> Designed a <strong> fluid chamber </strong> with single transducer setup</li>
+      <li><i class="fas fa-chart-line"></i> Used <strong> time-delay & FFT </strong> to analyze elasticity</li>
+      <li><i class="fas fa-award"></i> Presented at <strong> Regionals </strong>; qualified for <strong>State Science Fair</strong></li>
+    </ul>
+
+    <canvas id="elasticChart" width="600" height="300"></canvas>
+  </div>
+
+  <footer>&copy; 2025 Sanabhi Gauraw. All rights reserved.</footer>
+
+  <!-- AOS Animation JS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init();</script>
+
+  <!-- Chart.js Graph Script -->
+  <script>
+    const ctx = document.getElementById('elasticChart').getContext('2d');
+    const elasticChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['0%', '20%', '40%', '60%', '80%', '100% Glycerin'],
+        datasets: [{
+          label: 'Effective Bulk Modulus',
+          data: [1.1, 1.3, 1.6, 1.9, 2.2, 2.6],
+          borderColor: '#fa8072',
+          backgroundColor: 'rgba(250, 128, 114, 0.6)',
+          tension: 0.4,
+          fill: true,
+          pointRadius: 5
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { title: { display: true, text: 'kPa' } },
+          x: { title: { display: true, text: 'Glycerin Concentration' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

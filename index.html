@@ -2,69 +2,822 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="A website created by Sanabhi Gauraw to showcase his skills as a programmer, engineer, and a learner."/>
-  <title>Sanabhi Gauraw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sanabhi Gauraw | Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
-      font-family: sans-serif;
-      background: #f7f7f7;
-      color: #333;
+    /* ====================== */
+    /* === GLOBAL STYLES === */
+    /* ====================== */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #1A202C;
+      color: #E2E8F0;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Generic section spacing */
+    section {
+      padding: 3rem 1rem;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    /* Center headings */
+    .section-header {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ====================== */
+    /* === NAV BAR === */
+    /* ====================== */
+    .nav {
+      background-color: #2D3748;
+      border-bottom: 1px solid #4FD1C5;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    .nav.hidden {
+      transform: translateY(-100%);
+    }
+
+    .nav h1 {
+      font-size: 1.5rem;
+      margin-left: 1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      margin-right: 1rem;
+    }
+
+    a {
+      color: #4FD1C5;
+      text-decoration: none;
+    }
+    a:active { color: #319795; }
+    a:hover { color: #F6AD55; }
+    a:visited { color: #81E6D9; }
+
+    /* ====================== */
+    /* === BANNER === */
+    /* ====================== */
+    .banner {
+      background: #4FD1C5;
+      color: #1A202C;
+      padding: 8rem 1rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .banner-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .banner h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tagline {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      min-height: 2rem;
+    }
+
+    /* ====================== */
+    /* === SOCIAL BUTTONS === */
+    /* ====================== */
+    .social-boxes {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
+      text-decoration: none;
     }
-    h1 {
-      font-size: 2.5rem;
+
+    .social-box {
+      background-color: #2D3748;
+      color: #E2E8F0;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: 0.3s;
       margin-bottom: 0.5rem;
     }
-    h2 {
-      font-weight: normal;
-      color: #666;
-      margin-bottom: 2rem;
+
+    .social-box:hover {
+      background-color: rgba(79, 209, 197, 0.15);
+      box-shadow: 0 0 15px #4FD1C5;
     }
-    .btn {
-      background-color: #0077cc;
-      color: white;
-      padding: 0.75rem 1.5rem;
+
+    .social-text {
+      color: #1A202C;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    /* ====================== */
+    /* === PROJECT CARDS === */
+    /* ====================== */
+    #projects .project-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    #projects .project {
+      border: 1px solid #4FD1C5;
+      padding: 1.5rem;
+      border-radius: 12px;
+      background-color: #2D3748;
+      text-align: center;
+      transition: background 0.3s;
+    }
+
+    #projects .project:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    /* ====================== */
+    /* === FORM === */
+    /* ====================== */
+    form {
+      background-color: #2D3748;
+      padding: 2rem;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 600px;
+      margin: 2rem auto;
+    }
+
+    form label {
+      color: #CBD5E0;
+      font-weight: 500;
+    }
+
+    form input,
+    form textarea {
+      border: 1px solid #4A5568;
+      background-color: #1A202C;
+      color: #E2E8F0;
+      padding: 0.8rem;
+      border-radius: 6px;
+      width: 100%;
+    }
+
+    form input:focus,
+    form textarea:focus {
+      border-color: #4FD1C5;
+      box-shadow: 0 0 6px rgba(79, 209, 197, 0.4);
+      outline: none;
+    }
+
+    form button[type="submit"] {
+      background-color: #4FD1C5;
+      color: #1A202C;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    form button[type="submit"]:hover {
+      background-color: #319795;
+    }
+
+    /* ====================== */
+    /* === FOOTER === */
+    /* ====================== */
+    footer {
+      border-top: 1px solid #4FD1C5;
+      color: #A0AEC0;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: auto;
+    }
+
+    /* ====================== */
+    /* === 3D IMAGE CAROUSEL === */
+    /* ====================== */
+    .carousel-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      perspective: 1000px;
+      width: 100%;
+      max-width: 100%;
+      margin: 2rem auto;
+    }
+
+    #carousel-track {
+      display: flex;
+      gap: 20px;
+      transition: transform 0.5s ease-in-out;
+      padding: 0 10px;
+    }
+
+    .carousel-item {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+      flex-shrink: 0;
       text-decoration: none;
-      border-radius: 8px;
+      background-color: #f9f9f9;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+    }
+
+    .carousel-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .caption {
+      padding: 1rem;
       font-size: 1rem;
-      margin: 1rem 0;
-      display: inline-block;
+      background-color: #ffffff;
+      color: #333333;
+      text-align: center;
     }
-    .btn:hover {
-      background-color: #005fa3;
+
+    /* Carousel buttons */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #4FD1C5;
+      color: white;
+      font-size: 2rem;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      z-index: 2;
+      border-radius: 50%;
+      opacity: 0.8;
+      transition: opacity 0.2s, background 0.2s;
     }
-    .links a {
-      margin: 0 1rem;
-      text-decoration: none;
-      color: #0077cc;
+
+    .carousel-btn:hover { 
+      opacity: 1; 
+      background: #319795;
     }
-    .links a:hover {
-      text-decoration: underline;
+    .carousel-btn.left { left: 20px; }
+    .carousel-btn.right { right: 20px; }
+
+    /* ====================== */
+    /* === RESPONSIVE === */
+    /* ====================== */
+    @media (max-width: 768px) {
+      .nav {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0.5rem;
+      }
+      
+      .nav-links {
+        margin-right: 0;
+      }
+      
+      #projects .project-list {
+        grid-template-columns: 1fr;
+      }
+      
+      .social-boxes {
+        gap: 15px;
+      }
+      
+      .social-box {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .banner {
+        padding: 6rem 1rem 2rem;
+      }
+      
+      .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav h1 {
+        font-size: 1.2rem;
+      }
+      
+      .nav-links {
+        gap: 1rem;
+      }
+      
+      .banner h1 {
+        font-size: 2rem;
+      }
+      
+      .tagline {
+        font-size: 1.2rem;
+      }
+      
+      .social-box {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .social-text {
+        font-size: 0.8rem;
+      }
+      
+      .carousel-item {
+        width: 250px;
+      }
+    }
+
+    /* Canvas for animated background */
+    #dots-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    /* Content sections */
+    .content-section {
+      margin-top: 2rem;
+    }
+
+    /* Dot navigation for carousel */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 1rem;
+    }
+
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #CBD5E0;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .carousel-dot.active {
+      background: #4FD1C5;
     }
   </style>
 </head>
+
 <body>
+  <!-- ==================== -->
+  <!-- === Main Header === -->
+  <!-- ==================== -->
+  <header class="nav" id="main-header">
+    <h1>Sanabhi Gauraw</h1>
+    <!-- Main Navigation -->
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </header>
+  
+  <!-- ==================== -->
+  <!-- === Hero Banner === -->
+  <!-- ==================== -->
+  <header class="banner">
+    <!-- Animated background canvas -->
+    <canvas id="dots-canvas"></canvas>
 
-  <h1>Sanabhi Gauraw</h1>
-  <h2>Software Developer | Tech Enthusiast</h2>
+    <div class="banner-content">
+      <h1>Hi, I'm <span style="color:#000000;">Sanabhi</span>.</h1>
+      <p class="tagline" id="typed-text"></p>
 
-  <p>Welcome to my personal website. You can download my CV below or reach out via the links.</p>
+      <!-- Social Media Links Container -->
+      <div class="social-boxes">
+        <a href="https://www.linkedin.com/in/sanabhi-gauraw-b8ab4b265" target="_blank" rel="noopener noreferrer" class="social-link">
+          <div class="social-box">
+            <i class="fab fa-linkedin"></i>
+          </div>
+          <span class="social-text">LinkedIn</span>
+        </a>
+        <a href="mailto:sanabhi.gauraw.home@gmail.com" class="social-link">
+          <div class="social-box">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <span class="social-text">Email</span>
+        </a>
+        <a href="/gaurawme/resume/resume.html" target="_blank" rel="noopener noreferrer" class="social-link">
+          <div class="social-box">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <span class="social-text">Resume</span>
+        </a>
+        <a href="https://github.com/SanabhiG" target="_blank" rel="noopener noreferrer" class="social-link">
+          <div class="social-box">
+            <i class="fab fa-github"></i>
+          </div>
+          <span class="social-text">GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
 
-  <a class="btn" href="Resume_SanabhiG.pdf" target="_blank">View My CV</a>
+  <!-- ==================== -->
+  <!-- === Image Carousel === -->
+  <!-- ==================== -->
+  <section id="carousel" class="content-section">
+    <div class="section-header">
+      <h2>Gallery</h2>
+    </div>
+    <div class="carousel-wrapper">
+      <button class="carousel-btn left" aria-label="Previous image">&#10094;</button>
+      <div id="carousel-track">
+        <!-- Carousel Items - 10 images as requested -->
+        <a href="gaurawme/gallery/image1.html" class="carousel-item">
+          <img src="assets/11_SF.JPEG" alt="Description of Image 1" loading="lazy" />
+          <div class="caption">Acoustics Research</div>
+        </a>
+        <a href="gaurawme/gallery/image2.html" class="carousel-item">
+          <img src="img2.jpg" alt="Description of Image 2" loading="lazy" />
+          <div class="caption">UNT Research Experience and Mentorship</div>
+        </a>
+        <a href="gaurawme/gallery/image3.html" class="carousel-item">
+          <img src="assets/9_FTC_1.JPEG" alt="First Tech Challenge" loading="lazy" />
+          <div class="caption">First Tech Challenge</div>
+        </a>
+        <a href="gaurawme/gallery/image4.html" class="carousel-item">
+          <img src="img4.jpg" alt="Description of Image 4" loading="lazy" />
+          <div class="caption">Science Bowl</div>
+        </a>
+        <a href="gaurawme/gallery/image5.html" class="carousel-item">
+          <img src="img5.jpg" alt="Description of Image 5" loading="lazy" />
+          <div class="caption">Texas Junior Academy of Sciences</div>
+        </a>
+        <a href="gaurawme/gallery/image6.html" class="carousel-item">
+          <img src="img6.jpg" alt="Description of Image 6" loading="lazy" />
+          <div class="caption">First Robotics Challenge</div>
+        </a>
+        <a href="gaurawme/gallery/image7.html" class="carousel-item">
+          <img src="img7.jpg" alt="Description of Image 7" loading="lazy" />
+          <div class="caption">Beal Bank Science and Engineering Fair</div>
+        </a>
+        <a href="gaurawme/gallery/image8.html" class="carousel-item">
+          <img src="assets/9_SF_1.JPEG" alt="Description of Image 8" loading="lazy" />
+          <div class="caption">Texas Science and Engineering Fair</div>
+        </a>
+        <a href="gaurawme/gallery/image9.html" class="carousel-item">
+          <img src="assets/9_TFS_1.JPG" alt="Description of Image 9" loading="lazy" />
+          <div class="caption">Texas French Symposium</div>
+        </a>
+        <a href="gaurawme/gallery/image10.html" class="carousel-item">
+          <img src="img10.jpg" alt="Description of Image 10" loading="lazy" />
+          <div class="caption">U.S. National Chemistry Olympiad</div>
+        </a>
+      </div>        
+      <button class="carousel-btn right" aria-label="Next image">&#10095;</button>
+    </div>
+    <div class="carousel-dots" id="carousel-dots">
+      <!-- Dots will be added by JavaScript -->
+    </div>
+  </section>
 
-  <div class="links">
-    <a href="https://github.com/SanabhiG" target="_blank">GitHub</a>
-    <a href="https://linkedin.com/in/sanabhi-gauraw" target="_blank">LinkedIn</a>
-    <a href="mailto:sanabhi@example.com">Email</a>
-  </div>
+  <!-- ==================== -->
+  <!-- === Main Content === -->
+  <!-- ==================== -->
+  <main>
+    <!-- About Section -->
+    <section id="about" class="content-section">
+      <h2>About Me</h2>
+      <p>
+        Hi! I'm a high school student passionate about coding, technology, and building cool projects. 
+        I enjoy learning new programming languages and improving my skills every day.
+      </p>
+    </section>
 
+    <!-- Projects Section -->
+    <section id="projects" class="content-section">
+      <h2>Projects</h2>
+      <div class="project-list">
+        <!-- Project 1 -->
+        <article class="project">
+          <h3>Project One</h3>
+          <p>Work in Progress</p>
+        </article>
+        
+        <!-- Project 2 -->
+        <article class="project">
+          <h3>Project Two</h3>
+          <p>A real-time physics simulation that teaches the user about drag forces.</p>
+          <div class="project-meta">
+            <span class="tech-used">JS, HTML, CSS, TypeScript</span>
+            <a href="gaurawme/sims/index.html" target="_blank" rel="noopener" class="project-link">View project</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="content-section">
+      <h2>Get In Touch</h2>
+      
+      <!-- Contact Form -->
+      <form id="contact-form" class="contact-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required placeholder="Your name" />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="your.email@example.com" />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required placeholder="What would you like to say?"></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- ==================== -->
+  <!-- === Footer === -->
+  <!-- ==================== -->
+  <footer class="site-footer">
+    <p>Contact my Discord! schwifty@3661</p>
+  </footer>
+
+  <script>
+    // Typewriter effect
+    const texts = [
+      "Physics Researcher.",
+      "Robotics Engineer.",
+      "Maker.",
+      "Problem Solver."
+    ];
+
+    let count = 0;
+    let i = 0;
+    let currentText = "";
+    let isDeleting = false;
+    const speed = 100;
+
+    function typeWriter() {
+      const typedText = document.getElementById("typed-text");
+
+      if (count === texts.length) {
+        count = 0;
+      }
+
+      currentText = texts[count];
+
+      if (isDeleting) {
+        typedText.innerHTML = currentText.substring(0, i--);
+      } else {
+        typedText.innerHTML = currentText.substring(0, i++);
+      }
+
+      let typingSpeed = isDeleting ? speed / 2 : speed;
+
+      if (!isDeleting && i === currentText.length) {
+        typingSpeed = 1500;
+        isDeleting = true;
+      } else if (isDeleting && i === 0) {
+        isDeleting = false;
+        count++;
+        typingSpeed = 500;
+      }
+
+      setTimeout(typeWriter, typingSpeed);
+    }
+
+    // Navbar hide/show functionality
+    let lastScrollTop = 0;
+    const navbar = document.getElementById('main-header');
+    const hideDelay = 1500; // 1.5 seconds
+    let hideTimeout;
+
+    function handleScroll() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Clear any existing timeout
+      clearTimeout(hideTimeout);
+      
+      if (scrollTop > lastScrollTop && scrollTop > 100) {
+        // Scrolling down - hide navbar after delay
+        hideTimeout = setTimeout(() => {
+          navbar.classList.add('hidden');
+        }, hideDelay);
+      } else {
+        // Scrolling up - show navbar
+        navbar.classList.remove('hidden');
+      }
+      
+      lastScrollTop = scrollTop;
+    }
+
+    // Carousel functionality
+    function initCarousel() {
+      const track = document.getElementById('carousel-track');
+      const items = track.getElementsByClassName('carousel-item');
+      const dotsContainer = document.getElementById('carousel-dots');
+      const prevBtn = document.querySelector('.carousel-btn.left');
+      const nextBtn = document.querySelector('.carousel-btn.right');
+      
+      let currentIndex = 0;
+      const itemWidth = items[0].offsetWidth + 20; // width + gap
+      
+      // Create dots
+      for (let i = 0; i < items.length; i++) {
+        const dot = document.createElement('button');
+        dot.classList.add('carousel-dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      }
+      
+      const dots = dotsContainer.getElementsByClassName('carousel-dot');
+      
+      function updateCarousel() {
+        track.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        
+        // Update active dot
+        for (let i = 0; i < dots.length; i++) {
+          dots[i].classList.remove('active');
+        }
+        dots[currentIndex].classList.add('active');
+      }
+      
+      function goToSlide(index) {
+        currentIndex = index;
+        if (currentIndex >= items.length) currentIndex = 0;
+        if (currentIndex < 0) currentIndex = items.length - 1;
+        updateCarousel();
+      }
+      
+      function nextSlide() {
+        goToSlide(currentIndex + 1);
+      }
+      
+      function prevSlide() {
+        goToSlide(currentIndex - 1);
+      }
+      
+      // Event listeners
+      prevBtn.addEventListener('click', prevSlide);
+      nextBtn.addEventListener('click', nextSlide);
+      
+      // Auto-play
+      setInterval(nextSlide, 5000);
+    }
+
+    // Enhanced dots animation for banner background with thicker lines
+    function initDotsAnimation() {
+      const canvas = document.getElementById('dots-canvas');
+      const ctx = canvas.getContext('2d');
+      
+      function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      }
+      
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+      
+      const dots = [];
+      const dotCount = 80; // Increased number of dots
+      const connectionDistance = 150; // Distance at which dots connect
+      
+      // Create dots
+      for (let i = 0; i < dotCount; i++) {
+        dots.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 4 + 2, // Larger dots
+          speed: Math.random() * 0.8 + 0.3,
+          direction: Math.random() * Math.PI * 2
+        });
+      }
+      
+      function drawDots() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw connections first (behind dots)
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.lineWidth = 3; // Thicker lines
+        
+        for (let i = 0; i < dots.length; i++) {
+          for (let j = i + 1; j < dots.length; j++) {
+            const dx = dots[i].x - dots[j].x;
+            const dy = dots[i].y - dots[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < connectionDistance) {
+              // Line opacity increases as dots get closer
+              ctx.globalAlpha = 1 - (distance / connectionDistance);
+              ctx.beginPath();
+              ctx.moveTo(dots[i].x, dots[i].y);
+              ctx.lineTo(dots[j].x, dots[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+        
+        ctx.globalAlpha = 1; // Reset alpha
+        
+        // Draw dots
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'; // Brighter dots
+        
+        for (let i = 0; i < dots.length; i++) {
+          const dot = dots[i];
+          
+          ctx.beginPath();
+          ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
+          ctx.fill();
+          
+          // Move dot
+          dot.x += Math.cos(dot.direction) * dot.speed;
+          dot.y += Math.sin(dot.direction) * dot.speed;
+          
+          // Bounce off edges
+          if (dot.x < 0 || dot.x > canvas.width) {
+            dot.direction = Math.PI - dot.direction;
+          }
+          if (dot.y < 0 || dot.y > canvas.height) {
+            dot.direction = -dot.direction;
+          }
+        }
+        
+        requestAnimationFrame(drawDots);
+      }
+      
+      drawDots();
+    }
+
+    // Initialize everything when page loads
+    window.addEventListener('DOMContentLoaded', () => {
+      typeWriter();
+      window.addEventListener('scroll', handleScroll);
+      initCarousel();
+      initDotsAnimation();
+    });
+  </script>
 </body>
 </html>

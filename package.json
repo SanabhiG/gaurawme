@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@react-three/drei": "^10.5.1",
+    "@react-three/fiber": "^9.2.0",
+    "leva": "^0.10.0",
+    "plotly.js-dist-min": "^3.0.1",
+    "three": "^0.178.0"
+  }
+}
