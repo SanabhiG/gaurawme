@@ -100,7 +100,7 @@
             font-size: 1.05rem;
             line-height: 1.7;
             color: var(--text-color);
-            transition: background 0.4s, color 0.4s;
+            transition: background 0.1s, color 0.4s;
         }
 
         .sim-summary h1 { 
@@ -132,9 +132,13 @@
         }
 
         .sim-panel .sim-container {
-          height: 96vh;
-          min-height: 400px;
-        }
+  flex: 1;
+  min-height: 400px;
+  height: auto;       /* let it scale naturally */
+  max-height: 102%; 
+  max-width: 98%;  /* don't blow past parent */
+}
+
 
         .sim-container {
             flex: 1;
@@ -143,7 +147,7 @@
             background: var(--card-bg);
             overflow: hidden;
             position: relative;
-            transition: all 0.3s ease, background 0.4s;
+            transition: background 0.4s, box-shadow 0.3s ease, border-radius 0.3s ease;
             display: flex;
             flex-direction: column;
             padding: 1rem;
@@ -546,6 +550,16 @@
 
 </head>
 <body>  
+
+    <!-- Username Modal -->
+    <div id="username-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: flex; justify-content: center; align-items: center;">
+      <div style="background: var(--card-bg); padding: 2rem; border-radius: 12px; text-align: center; max-width: 500px; width: 90%;">
+          <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Welcome to the Projectile Motion Simulator</h2>
+          <p style="margin-bottom: 1.5rem;">Please enter your name to begin:</p>
+          <input type="text" id="user-name" class="form-input" placeholder="Your Name" style="margin-bottom: 1.5rem;">
+          <button id="start-btn" class="submit-btn">Begin Simulation</button>
+      </div>
+    </div>
     <div class="particles" id="particles"></div> <!-- Floating particles -->
     <div class="header-container">
         <header>Projectile Motion Simulator</header>
@@ -601,14 +615,14 @@
                 <div class="data-table-container">
                     <h3 class="data-table-title">Height vs. Time Data Table</h3>
                     <p class="question-text" style="font-size: 0.9rem; margin-bottom: 1rem;">
-                        Enter time and height values from your observations:
+                        Holding gravity to a constant -10 m/s^2, change the value of h0 and enter time of flight values from your observations:
                     </p>
                     
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>Time (s)</th>
                                 <th>Height (m)</th>
+                                <th>Time (s)</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -625,7 +639,7 @@
                 <div class="data-table-container" id="gravity-table-container">
                     <h3 class="data-table-title">Time vs. Gravity Data Table</h3>
                     <p class="question-text" style="font-size: 0.9rem; margin-bottom: 1rem;">
-                        Enter gravity and time values from your observations:
+                      Holding height to a constant +45 m, change the value of g and enter time of flight values from your observations:
                     </p>
                     
                     <table class="data-table">
@@ -730,10 +744,32 @@
                       Use your scaling observations to derive the formula for time of flight:
                   </p>
                 </div>
+
+                <!-- Final Formula Input Section -->
+                <div class="form-group" style="margin-top: 2rem;">
+                  <label class="form-label">
+                      Enter the complete formula for time of flight (use 'h' for height and 'g' for gravity):
+                  </label>
+                  <input type="text" id="formula-input" class="form-input" placeholder="e.g., t = √(2h/g)">
+                  <button id="check-formula" class="submit-btn">Check Formula</button>
+                  <div id="formula-feedback" class="feedback"></div>
+                </div>
             </div>
         </div>
     </div>
     
+    <!-- Certificate Section -->
+<div id="certificate" style="display: none; margin: 2rem auto; max-width: 800px; background: white; padding: 2rem; border: 10px solid var(--primary-color); text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+  <h1 style="color: var(--primary-color); font-size: 2.5rem; margin-bottom: 1rem;">Certificate of Completion</h1>
+  <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">This certifies that</p>
+  <h2 id="certificate-name" style="font-size: 2rem; color: #333; margin-bottom: 1.5rem; text-decoration: underline;"></h2>
+  <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">has successfully completed the Projectile Motion Simulation and Analysis</p>
+  <p style="font-size: 1.1rem; margin-bottom: 2rem;">on <span id="completion-date"></span></p>
+  <div style="border-top: 2px solid #333; padding-top: 1rem; width: 60%; margin: 0 auto;">
+      <p>Physics Education System</p>
+  </div>
+</div>
+
     <footer>
         <div>Developed by Sanabhi Gauraw | Powered by React + Three.js</div>
         <div class="footer-links">
@@ -741,6 +777,8 @@
             <a href="#" id="fullscreen-btn">Enter Fullscreen</a>
         </div>
     </footer>
+
+
 
     <script>
         // DOM Elements
@@ -804,8 +842,8 @@
             for (let i = 0; i < count; i++) {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td><input type="number" class="time-input" step="0.1" placeholder="Time"></td>
                     <td><input type="number" class="height-input" step="0.1" placeholder="Height"></td>
+                    <td><input type="number" class="time-input" step="0.1" placeholder="Time"></td>
                     <td class="status-cell">-</td>
                 `;
                 dataTableBody.appendChild(row);
@@ -830,8 +868,8 @@
         function addDataRow() {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td><input type="number" class="time-input" step="0.1" placeholder="Time"></td>
                 <td><input type="number" class="height-input" step="0.1" placeholder="Height"></td>
+                <td><input type="number" class="time-input" step="0.1" placeholder="Time"></td>
                 <td class="status-cell">-</td>
             `;
             dataTableBody.appendChild(row);
@@ -848,40 +886,41 @@
             gravityTableBody.appendChild(row);
         }
         
-        // Check data values
         function checkDataValues() {
-            const timeInputs = document.querySelectorAll('.time-input');
-            const heightInputs = document.querySelectorAll('.height-input');
-            const statusCells = document.querySelectorAll('.status-cell');
-            
-            dataPoints = [];
-            
-            timeInputs.forEach((input, index) => {
-                const timeVal = parseFloat(input.value);
-                const heightVal = parseFloat(heightInputs[index].value);
-                
-                if (isNaN(timeVal) || isNaN(heightVal)) {
-                    statusCells[index].textContent = "No data";
-                    statusCells[index].className = "status-cell";
-                    return;
-                }
-                
-                // Calculate expected height
-                const expectedHeight = initialHeight - (0.5 * gravity * timeVal * timeVal);
-                const tolerance = 0.5; // Allow for small rounding differences
-                
-                if (Math.abs(heightVal - expectedHeight) <= tolerance) {
-                    statusCells[index].textContent = "✓ Correct";
-                    statusCells[index].className = "status-cell correct-cell";
-                    dataPoints.push({ time: timeVal, height: heightVal });
-                } else {
-                    statusCells[index].textContent = "✗ Incorrect";
-                    statusCells[index].className = "status-cell incorrect-cell";
-                }
-            });
-            
-            updateChart();
+    const heightInputs = document.querySelectorAll('.height-input');
+    const timeInputs = document.querySelectorAll('.time-input');
+    const statusCells = document.querySelectorAll('.status-cell');
+
+    dataPoints = [];
+
+    heightInputs.forEach((input, index) => {
+        const heightVal = parseFloat(input.value);
+        const timeVal = parseFloat(timeInputs[index].value);
+
+        if (isNaN(heightVal) || isNaN(timeVal)) {
+            statusCells[index].textContent = "No data";
+            statusCells[index].className = "status-cell";
+            return;
         }
+
+        // Compute expected height from current initialHeight and g
+        const expectedHeight = initialHeight - 0.5 * gravity * timeVal * timeVal;
+        const tolerance = 0.5;
+
+        if (Math.abs(heightVal - expectedHeight) <= tolerance) {
+            statusCells[index].textContent = "✓ Correct";
+            statusCells[index].className = "status-cell correct-cell";
+            dataPoints.push({ time: timeVal, height: heightVal });
+        } else {
+            statusCells[index].textContent = "✗ Incorrect";
+            statusCells[index].className = "status-cell incorrect-cell";
+        }
+    });
+
+    updateChart();
+    dataTableCompleted = dataPoints.length >= 3;
+}
+
         
         // Check gravity data values
         function checkGravityDataValues() {
@@ -916,6 +955,7 @@
             });
             
             updateChart();
+            gravityTableCompleted = gravityDataPoints.length >= 3;
         }
         
         // Switch between graphs
@@ -955,13 +995,13 @@
                         x: {
                             title: {
                                 display: true,
-                                text: 'Time (s)'
+                                text: 'Height (m)'
                             }
                         },
                         y: {
                             title: {
                                 display: true,
-                                text: 'Height (m)'
+                                text: 'Time (s)'
                             }
                         }
                     }
@@ -1183,12 +1223,8 @@
             if (selected === "time2-1overg") {
                 gravityFeedbackElement.textContent = "Correct! Time² vs 1/Gravity is linear, matching t² ∝ h/g.";
                 gravityFeedbackElement.className = "feedback correct";
-            } else if (selected) {
-                gravityFeedbackElement.textContent = "Not quite. Think about the formula t = √(2h/g). Square it to see the relationship.";
-                gravityFeedbackElement.className = "feedback incorrect";
-            } else {
-                gravityFeedbackElement.textContent = "Please select an option.";
-                gravityFeedbackElement.className = "feedback incorrect";
+                gravityAnalysisCompleted = true;
+                showCertificateIfCompleted();
             }
 
             updateScalingChart(selected);
@@ -1277,12 +1313,8 @@
             if (selected === "height-timesq") {
                 heightFeedbackElement.textContent = "Correct! Height vs. Time² is linear, matching h = h₀ - ½gt².";
                 heightFeedbackElement.className = "feedback correct";
-            } else if (selected) {
-                heightFeedbackElement.textContent = "Not quite. Think about the formula h = h₀ - ½gt².";
-                heightFeedbackElement.className = "feedback incorrect";
-            } else {
-                heightFeedbackElement.textContent = "Please select an option.";
-                heightFeedbackElement.className = "feedback incorrect";
+                heightAnalysisCompleted = true;
+                showCertificateIfCompleted();
             }
 
             updateScalingChartHeight(selected);
@@ -1312,12 +1344,8 @@
             if (userAns === "sqrt(2)" || userAns === "√2" || userAns === "1.414" || userAns === "1.4142") {
                 proportionalityFeedback.innerHTML = "✅ Correct! The constant of proportionality is \\(\\sqrt{2}\\).";
                 proportionalityFeedback.className = "feedback correct";
-            } else if (userAns) {
-                proportionalityFeedback.innerHTML = "❌ Not quite. Try again. Remember: \\(t^2 = k \\cdot \\tfrac{h}{g}\\).";
-                proportionalityFeedback.className = "feedback incorrect";
-            } else {
-                proportionalityFeedback.innerHTML = "⚠️ Please enter an answer.";
-                proportionalityFeedback.className = "feedback incorrect";
+                proportionalityCompleted = true;
+                showCertificateIfCompleted();
             }
 
             // Re-render LaTeX
@@ -1329,7 +1357,155 @@
         checkProportionalityBtn.addEventListener('click', checkProportionality);
 
 
+        // Track completion status
+let userName = "";
+let dataTableCompleted = false;
+let gravityTableCompleted = false;
+let proportionalityCompleted = false;
+let formulaCompleted = false;
+let gravityAnalysisCompleted = false;
+let heightAnalysisCompleted = false;
+
+// Check if all tasks are completed
+function checkAllTasksCompleted() {
+    return dataTableCompleted && gravityTableCompleted && proportionalityCompleted && 
+           formulaCompleted && gravityAnalysisCompleted && heightAnalysisCompleted;
+}
+
+// Show certificate if all tasks are completed
+function showCertificateIfCompleted() {
+    if (checkAllTasksCompleted()) {
+        document.getElementById('certificate-name').textContent = userName;
+        document.getElementById('completion-date').textContent = new Date().toLocaleDateString();
+        document.getElementById('certificate').style.display = 'block';
+        
+        // Scroll to certificate
+        setTimeout(() => {
+            document.getElementById('certificate').scrollIntoView({ behavior: 'smooth' });
+        }, 1000);
+    }
+}
+
+// Check formula input
+function checkFormula() {
+    let userFormula = document.getElementById('formula-input').value;
+    userFormula = userFormula.replace(/\s+/g, '').toLowerCase();
+    
+    // Allow different variations of the formula
+    const correctFormulas = [
+        't=√(2h/g)',
+        't=sqrt(2h/g)',
+        't=√(2*h/g)',
+        't=sqrt(2*h/g)',
+        't=√(2h÷g)',
+        't=sqrt(2h÷g)'
+    ];
+    
+    if (correctFormulas.includes(userFormula)) {
+        document.getElementById('formula-feedback').innerHTML = "✅ Correct! The formula is \\(t = \\sqrt{\\frac{2h}{g}}\\)";
+        document.getElementById('formula-feedback').className = "feedback correct";
+        formulaCompleted = true;
+        showCertificateIfCompleted();
+    } else if (userFormula) {
+        document.getElementById('formula-feedback').innerHTML = "❌ Not quite. Remember the relationship: \\(t^2 = \\frac{2h}{g}\\)";
+        document.getElementById('formula-feedback').className = "feedback incorrect";
+    } else {
+        document.getElementById('formula-feedback').innerHTML = "⚠️ Please enter the formula.";
+        document.getElementById('formula-feedback').className = "feedback incorrect";
+    }
+    
+    // Re-render LaTeX
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+}
+
+// Username modal functionality
+document.getElementById('start-btn').addEventListener('click', function() {
+    userName = document.getElementById('user-name').value.trim();
+    if (userName) {
+        document.getElementById('username-modal').style.display = 'none';
+    } else {
+        alert('Please enter your name to continue.');
+    }
+});
+
+// Formula check event listener
+document.getElementById('check-formula').addEventListener('click', checkFormula);
+
+// Allow pressing Enter in the username field
+document.getElementById('user-name').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        document.getElementById('start-btn').click();
+    }
+});
+
     </script>
+
+<script>
+  // Add this to your existing JavaScript
+  
+  // Fullscreen functionality
+  const fullscreenBtn = document.getElementById('fullscreen-btn');
+  const simContainer = document.querySelector('.sim-container');
+  
+  function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+          simContainer.requestFullscreen().catch(err => {
+              console.error(`Error attempting to enable fullscreen: ${err.message}`);
+          });
+          fullscreenBtn.textContent = 'Exit Fullscreen';
+          
+          // Add a class to handle fullscreen styling
+          document.body.classList.add('fullscreen-active');
+      } else {
+          document.exitFullscreen();
+          fullscreenBtn.textContent = 'Enter Fullscreen';
+          
+          // Remove the fullscreen class
+          document.body.classList.remove('fullscreen-active');
+      }
+  }
+  
+  // Listen for fullscreen changes to update UI correctly
+  document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) {
+          fullscreenBtn.textContent = 'Enter Fullscreen';
+          document.body.classList.remove('fullscreen-active');
+      }
+  });
+  
+  fullscreenBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleFullscreen();
+  });
+  
+  // Also add this CSS to handle the fullscreen state
+  </script>
+  
+  <style>
+  /* Add these styles to your existing CSS */
+  body.fullscreen-active .sim-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      border-radius: 0;
+  }
+  
+  body.fullscreen-active .header-container,
+  body.fullscreen-active .form-panel,
+  body.fullscreen-active footer {
+      display: none;
+  }
+  
+  body.fullscreen-active .split-container {
+      height: 100vh;
+      margin: 0;
+  }
+  </style>
 
     <!-- This would load your original React simulation -->
     <script type="module" crossorigin src="./assets/projmot.js"></script>
