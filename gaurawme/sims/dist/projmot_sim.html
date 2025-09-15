@@ -1,235 +1,1513 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projectile Motion Simulator</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projectile Motion Simulator - Data Analysis</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="./assets/projmot.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BggJjbbr.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
-      :root {
-        --primary-color: #750014; 
-        --bg-color: #f5f5f5;      
-        --card-bg: #ffffff;
-        --text-color: #1a1a1a;
-        --text-muted: #555555;
-      }
+        :root {
+            --primary-color: #750014; 
+            --bg-color: #f5f5f5;      
+            --card-bg: #ffffff;
+            --text-color: #1a1a1a;
+            --text-muted: #555555;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+        }
 
-      * { box-sizing: border-box; margin: 0; padding: 0; }
+        #proportionality-input {
+            margin-bottom: 1.5rem; /* Adds space below the input */
+        }
 
-      body {
-        font-family: 'JetBrains Mono', monospace;
-        background: var(--bg-color);
-        color: var(--text-color);
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 2rem;
-        overflow-x: hidden;
-        overflow-y: auto;
-      }
+        .height-scaling-options {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #ddd;
+        }
 
-      .header-container { display: flex; flex-direction: column; align-items: center; width: 100%; margin-bottom: 1.5rem; }
+        body.dark-mode {
+            --bg-color: #0f0f0f;
+            --card-bg: #1b1b1b;
+            --text-color: #eaeaea;
+            --text-muted: #b3b3b3;
+            --primary-color: #ff5577;
+            --success-color: #4CAF50;
+            --error-color: #F44336;
+        }
 
-      header {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 2.4rem;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--primary-color);
-        text-align: center;
-        margin-bottom: 1rem;
-        animation: pulse 4s ease-in-out infinite;
-      }
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
 
-      @keyframes pulse { 0%, 100% { opacity: 0.95; } 50% { opacity: 1; } }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+            transition: background 0.4s, color 0.4s;
+        }
 
-      .sim-summary {
-        text-align: center;
-        max-width: 900px;
-        padding: 1.5rem 2rem;
-        margin-bottom: 2rem;
-        background: var(--card-bg);
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        font-size: 1.05rem;
-        line-height: 1.6;
-        color: var(--text-color);
-      }
+        .header-container { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 100%; 
+            margin-bottom: 1.5rem; 
+        }
 
-      .sim-summary h1 { font-size: 1.6rem; color: var(--primary-color); margin-bottom: 0.75rem; }
+        header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1rem;
+            animation: pulse 4s ease-in-out infinite;
+        }
 
-      .sim-container {
-        width: 100%;
-        max-width: 1200px;
-        height: 80vh;
-        min-height: 630px;
-        border-radius: 16px;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-        background: var(--card-bg);
-        overflow: hidden;
-        position: relative;
-        transition: all 0.3s ease;
-        margin-bottom: 2rem;
-      }
+        @keyframes pulse { 
+            0%, 100% { opacity: 0.95; } 
+            50% { opacity: 1; } 
+        }
 
-      .video-container, .pdf-container {
-        width: 100%;
-        max-width: 1000px;
-        padding: 1rem;
-        border-radius: 12px;
-        background: var(--card-bg);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        margin-bottom: 2rem;
-        text-align: center;
-      }
+        .sim-summary {
+            text-align: center;
+            max-width: 900px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-color);
+            transition: background 0.1s, color 0.4s;
+        }
 
-      .video-glow-wrapper, .pdf-wrapper {
-        position: relative;
-        border-radius: 12px;
-        overflow: hidden;
-      }
+        .sim-summary h1 { 
+            font-size: 1.6rem; 
+            color: var(--primary-color); 
+            margin-bottom: 0.75rem; 
+        }
 
-      .video-glow-wrapper { padding-top: 56.25%; }
-      .video-embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        /* Split container styles */
+        .split-container {
+            display: flex;
+            width: 100%;
+            max-width: 1400px;
+            height: 80vh;
+            min-height: 700px;
+            margin-bottom: 2rem;
+            gap: 20px;
+        }
 
-      .video-caption, .pdf-caption { margin-top: 0.8rem; font-size: 1rem; color: var(--text-muted); }
+        .sim-panel {
+            flex: 2;
+            flex-direction: column;
+        }
 
-      footer {
-        display: flex; flex-direction: column; align-items: center; width: 100%;
-        margin-top: 2rem; font-size: 0.9rem; color: var(--text-muted); text-align: center; letter-spacing: 0.05em;
-      }
+        .form-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
 
-      .footer-links { display: flex; gap: 1rem; margin-top: 0.5rem; }
+        .sim-panel .sim-container {
+  flex: 1;
+  min-height: 400px;
+  height: auto;       /* let it scale naturally */
+  max-height: 102%; 
+  max-width: 98%;  /* don't blow past parent */
+}
 
-      footer a {
-        color: var(--primary-color); text-decoration: none; transition: all 0.3s ease; position: relative;
-      }
 
-      footer a::after {
-        content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px;
-        background: var(--primary-color); transition: width 0.3s ease;
-      }
+        .sim-container {
+            flex: 1;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            background: var(--card-bg);
+            overflow: hidden;
+            position: relative;
+            transition: background 0.4s, box-shadow 0.3s ease, border-radius 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
 
-      footer a:hover::after { width: 100%; }
+        .canvas-container {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
 
-      .fullscreen-symbol { font-size: 2.5rem; margin: 1rem 0; animation: bounce 2s infinite; cursor: pointer; color: var(--primary-color); }
+        #motion-canvas {
+            width: 100%;
+            height: 100%;
+            background: #f8f9fa;
+        }
 
-      @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 1rem;
+            justify-content: center;
+        }
 
-      .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
-      .particle { position: absolute; background: rgba(117,0,20,0.5); border-radius: 50%; animation: float linear infinite; }
+        .control-btn {
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
 
-      @keyframes float { to { transform: translateY(-100vh); } }
+        .control-btn:hover {
+            opacity: 0.9;
+        }
+
+        .form-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    background: var(--card-bg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: background 0.4s;
+    padding: 2rem; /* Increased padding */
+    overflow-y: auto;
+    gap: 1.5rem; /* Added gap between child elements */
+}
+
+/* Add consistent spacing between form groups */
+.form-group {
+    margin-bottom: 1.8rem; /* Increased spacing */
+}
+
+/* Add spacing between data tables and other elements */
+.data-table-container {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-top: 1px solid #ddd;
+    padding-top: 1.5rem;
+}
+
+/* Ensure graph containers have proper spacing */
+.graph-container {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    height: 250px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background: var(--card-bg);
+}
+
+        .form-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            color: var(--text-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            background: var(--card-bg);
+            color: var(--text-color);
+            transition: border-color 0.3s, background 0.4s, color 0.4s;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .submit-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .feedback.correct {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--error-color);
+            border: 1px solid var(--error-color);
+            display: block;
+        }
+
+        /* Data Table Styles */
+        .data-table-container {
+            margin-top: 2rem;
+            border-top: 1px solid #ddd;
+            padding-top: 1.5rem;
+        }
+
+        .data-table-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        .data-table th, .data-table td {
+            padding: 0.6rem;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .data-table th {
+            background-color: rgba(117, 0, 20, 0.1);
+            font-weight: 600;
+        }
+
+        .data-table input {
+            width: 90%;
+            padding: 0.4rem;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        .data-table .correct-cell {
+            background-color: rgba(40, 167, 69, 0.1);
+        }
+
+        .data-table .incorrect-cell {
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+
+        .check-table-btn {
+            padding: 0.6rem 1.2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .check-table-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Graph container */
+        .graph-container {
+            margin-top: 2rem;
+            height: 250px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            background: var(--card-bg);
+        }
+
+        /* Tabs for switching between graphs */
+        .graph-tabs {
+            display: flex;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .graph-tab {
+            padding: 8px 16px;
+            cursor: pointer;
+            background: #f0f0f0;
+            border-radius: 4px 4px 0 0;
+            margin-right: 5px;
+            transition: background 0.3s;
+        }
+
+        .graph-tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        body.dark-mode .graph-tab {
+            background: #2a2a2a;
+        }
+
+        body.dark-mode .graph-tab.active {
+            background: var(--primary-color);
+        }
+
+        footer {
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 100%;
+            margin-top: 2rem; 
+            font-size: 0.9rem; 
+            color: var(--text-muted); 
+            text-align: center; 
+            letter-spacing: 0.05em;
+            transition: color 0.4s;
+        }
+
+        .footer-links { 
+            display: flex; 
+            gap: 1rem; 
+            margin-top: 0.5rem; 
+        }
+
+        footer a {
+            color: var(--primary-color); 
+            text-decoration: none; 
+            transition: all 0.3s ease; 
+            position: relative;
+        }
+
+        footer a::after {
+            content: ''; 
+            position: absolute; 
+            bottom: -2px; 
+            left: 0; 
+            width: 0; 
+            height: 1px;
+            background: var(--primary-color); 
+            transition: width 0.3s ease;
+        }
+
+        footer a:hover::after { 
+            width: 100%; 
+        }
+
+        .darkmode-toggle {
+            margin-bottom: 1.5rem;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            background: var(--primary-color);
+            color: #fff;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.2s;
+        }
+        
+        .darkmode-toggle:hover { 
+            transform: translateY(-2px); 
+        }
+
+        .particles { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            pointer-events: none; 
+            overflow: hidden;
+        }
+        
+        .particle { 
+            position: absolute; 
+            background: rgba(117, 0, 20, 0.5); 
+            border-radius: 50%; 
+            animation: float linear infinite;
+        }
+
+        @keyframes float { 
+            to { 
+                transform: translateY(-100vh); 
+            } 
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 900px) {
+            .split-container {
+                flex-direction: column;
+                height: auto;
+                min-height: auto;
+            }
+            
+            .sim-panel, .form-panel {
+                flex: none;
+                height: 500px;
+            }
+            
+            .sim-panel {
+                margin-bottom: 20px;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <!-- Floating particles -->
-    <div class="particles" id="particles"></div>
-    
-    <div class="header-container">
-      <header>Projectile Motion Simulator</header>
-      <div class="sim-summary">
-        <h1>Explore 2D Projectile Motion</h1>
-        <p>
-          This interactive simulation demonstrates the motion of a projectile launched at various heights and accelerations. 
-          Students can adjust initial height and gravitational acceleration to observe how these 
-          parameters time of flight. The simulator also provides real-time data 
-          to compare against theoretical predictions, allowing learners to visually connect algebraic formulas with experimental outcomes. 
-          <br><br>
-          By experimenting with different conditions, you can see how linear and quadratic relationships emerge, 
-          and why the experimental method is so critical. This tool is designed to build intuition 
-          for AP Physics 1 FRQs, giving a concrete way to connect equations of motion to actual flight paths. Feel free to download the open source pdf at the bottom of this page.
-        </p>
-      </div>
-    </div>
-    
-    <div class="sim-container">
-      <div id="root"></div>
-    </div>
 
-    <!-- PDF worksheet section -->
-    <div class="pdf-container">
-      <div class="pdf-wrapper">
-        <iframe
-          src="../../../assets/AP Physics 1 Projectile Motion Time of Flight.pdf"
-          width="100%"
-          height="600px"
-          style="border: none;"
-        ></iframe>
-      </div>
-      <div class="pdf-caption">
-        Downloadable Worksheet: Practice applying projectile motion principles with guided data collection, graphing, and derivations.
-      </div>
-    </div>
-    
-    <footer>
-      <div>Developed by Sanabhi Gauraw | Powered by React + Three.js</div>
-      <div class="footer-links">
-        <a href="https://github.com/SanabhiG" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="#" id="fullscreen-btn">Enter Fullscreen</a>
-      </div>
-    </footer>
+
+    <!-- MathJax for LaTeX Rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
 
     <script>
-      // Create floating particles
-      document.addEventListener('DOMContentLoaded', () => {
-        const particlesContainer = document.getElementById('particles');
-        const particleCount = 30;
-        
-        for (let i = 0; i < particleCount; i++) {
-          const particle = document.createElement('div');
-          particle.classList.add('particle');
-          
-          const size = Math.random() * 5 + 1;
-          const posX = Math.random() * 100;
-          const duration = Math.random() * 20 + 10;
-          const delay = Math.random() * 20;
-          
-          particle.style.width = `${size}px`;
-          particle.style.height = `${size}px`;
-          particle.style.left = `${posX}%`;
-          particle.style.bottom = `-${size}px`;
-          particle.style.animationDuration = `${duration}s`;
-          particle.style.animationDelay = `${delay}s`;
-          particle.style.opacity = Math.random() * 0.5 + 0.1;
-          
-          particlesContainer.appendChild(particle);
-        }
-        
-        // Fullscreen
-        const fullscreenBtn = document.getElementById('fullscreen-btn');
-        const fullscreenSymbol = document.getElementById('fullscreen-symbol');
-        const container = document.querySelector('.sim-container');
-        
-        function toggleFullscreen() {
-          if (!document.fullscreenElement) {
-            container.requestFullscreen().catch(err => {
-              console.error(`Error attempting to enable fullscreen: ${err.message}`);
-            });
-            fullscreenBtn.textContent = 'Exit Fullscreen';
-          } else {
-            document.exitFullscreen();
-            fullscreenBtn.textContent = 'Enter Fullscreen';
+      // Add this to your existing script section
+      document.addEventListener('DOMContentLoaded', function() {
+          // Reprocess MathJax after content is loaded
+          if (window.MathJax) {
+              MathJax.typesetPromise();
           }
+          
+          // Also reprocess when feedback is shown
+          const checkProportionalityBtn = document.getElementById('check-proportionality');
+          if (checkProportionalityBtn) {
+              checkProportionalityBtn.addEventListener('click', function() {
+                  setTimeout(function() {
+                      if (window.MathJax) {
+                          MathJax.typesetPromise();
+                      }
+                  }, 100);
+              });
+          }
+      });
+      </script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+</head>
+<body>  
+
+    <!-- Username Modal -->
+    <div id="username-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: flex; justify-content: center; align-items: center;">
+      <div style="background: var(--card-bg); padding: 2rem; border-radius: 12px; text-align: center; max-width: 500px; width: 90%;">
+          <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Welcome to the Projectile Motion Simulator</h2>
+          <p style="margin-bottom: 1.5rem;">Please enter your name to begin:</p>
+          <input type="text" id="user-name" class="form-input" placeholder="Your Name" style="margin-bottom: 1.5rem;">
+          <button id="start-btn" class="submit-btn">Begin Simulation</button>
+      </div>
+    </div>
+    <div class="particles" id="particles"></div> <!-- Floating particles -->
+    <div class="header-container">
+        <header>Projectile Motion Simulator</header>
+        <button id="darkmode-btn" class="darkmode-toggle">🌙 Dark Mode</button>
+        <div class="sim-summary">
+            <h1>Explore 2D Projectile Motion</h1>
+            <p>
+                This interactive simulation demonstrates the motion of a projectile launched at various heights and accelerations. 
+                Students can adjust initial height and gravitational acceleration to observe how these 
+                parameters affect time of flight. The simulator also provides real-time data 
+                to compare against theoretical predictions, allowing learners to visually connect algebraic formulas with experimental outcomes. 
+                <br><br>
+                By experimenting with different conditions, you can see how linear and quadratic relationships emerge, 
+                and why the experimental method is so critical. This tool is designed to build intuition 
+                for AP Physics 1 FRQs, giving a concrete way to connect equations of motion to actual flight paths.
+            </p>
+        </div>
+    </div>
+    
+    <!-- 70/30 Split Layout -->
+    <div class="split-container">
+        <!-- Simulation Panel (70%) -->
+        <div class="sim-panel">
+            <div class="sim-container">
+                <!-- Your original simulation will be loaded here -->
+                <div id="root"></div>
+            </div>
+        </div>
+        
+        <!-- Form Panel (30%) -->
+        <div class="form-panel">
+            <div class="form-container">
+                <h2 class="form-title">Projectile Data Analysis</h2>
+                
+                <div class="form-group">
+                    <label for="initial-height" class="form-label">Initial Height (meters):</label>
+                    <input type="number" id="initial-height" class="form-input" value="45" min="5" max="100">
+                </div>
+                
+                <div class="form-group">
+                    <label for="initial-velocity" class="form-label">Initial Velocity (m/s):</label>
+                    <input type="number" id="initial-velocity" class="form-input" value="20" min="5" max="50">
+                </div>
+                
+                <div class="form-group">
+                    <label for="gravity" class="form-label">Gravity (m/s²):</label>
+                    <input type="number" id="gravity" class="form-input" value="10" min="1" max="20">
+                </div>
+                
+                <button id="apply-btn" class="submit-btn">Apply Parameters</button>
+                
+                <!-- Data Table Section -->
+                <div class="data-table-container">
+                    <h3 class="data-table-title">Height vs. Time Data Table</h3>
+                    <p class="question-text" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                        Holding gravity to a constant -10 m/s^2, change the value of h0 and enter time of flight values from your observations:
+                    </p>
+                    
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Height (m)</th>
+                                <th>Time (s)</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data-table-body">
+                            <!-- Rows will be added dynamically -->
+                        </tbody>
+                    </table>
+                    
+                    <button id="add-row-btn" class="check-table-btn" style="margin-top: 10px;">Add Data Point</button>
+                    <button id="check-table" class="check-table-btn" style="margin-top: 10px;">Check Values</button>
+                </div>
+                
+                <!-- Time vs Gravity Table -->
+                <div class="data-table-container" id="gravity-table-container">
+                    <h3 class="data-table-title">Time vs. Gravity Data Table</h3>
+                    <p class="question-text" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                      Holding height to a constant +45 m, change the value of g and enter time of flight values from your observations:
+                    </p>
+                    
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Gravity (m/s²)</th>
+                                <th>Time (s)</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gravity-table-body">
+                            <!-- Rows will be added dynamically -->
+                        </tbody>
+                    </table>
+                    
+                    <button id="add-gravity-row-btn" class="check-table-btn" style="margin-top: 10px;">Add Data Point</button>
+                    <button id="check-gravity-table" class="check-table-btn" style="margin-top: 10px;">Check Values</button>
+                </div>
+
+                <!-- Graph Section -->
+                <div class="graph-container">
+                  <div class="graph-tabs">
+                      <div class="graph-tab active" data-graph="height-time">Height vs Time</div>
+                      <div class="graph-tab" data-graph="time-gravity">Time vs Gravity</div>
+                  </div>
+                  <canvas id="data-chart"></canvas>
+                </div>
+
+                <!-- Scaling Question for Gravity vs Time -->
+                <div class="form-group" style="margin-top: 1.5rem;">
+                  <label for="gravity-analysis-select" class="form-label">
+                      Which scaling between gravity and time of flight would produce a linear graph?
+                  </label>
+                  <select id="gravity-analysis-select" class="form-select">
+                      <option value="">Select an option</option>
+                      <option value="time-gravity">Time vs. Gravity</option>
+                      <option value="time2-gravity">Time² vs. Gravity</option>
+                      <option value="time2-1overg">Time² vs. 1/Gravity</option>
+                  </select>
+                </div>
+                <button id="check-gravity-analysis" class="submit-btn">Check Gravity Scaling</button>
+                <div id="gravity-feedback" class="feedback"></div>
+
+                <!-- Dynamic chart preview for scaling -->
+                <div class="graph-container" id="scaling-preview" style="margin-top: 1rem; height: 250px;">
+                  <canvas id="scaling-chart"></canvas>
+                </div>
+
+                <div class="height-scaling-options">
+                  <div class="form-group">
+                      <label for="height-analysis-select" class="form-label">
+                          Which scaling between height and time would produce a linear graph?
+                      </label>
+                      <select id="height-analysis-select" class="form-select">
+                          <option value="">Select an option</option>
+                          <option value="height-time">Height vs. Time</option>
+                          <option value="height-timesq">Height vs. Time²</option>
+                          <option value="sqrt-height-time">√Height vs. Time</option>
+                      </select>
+                  </div>
+                  <button id="check-height-analysis" class="submit-btn">Check Height Scaling</button>
+                  <div id="height-feedback" class="feedback"></div>
+              </div>
+
+                              <!-- Scaling Chart Section -->
+                              <div class="graph-container" id="scaling-preview" style="margin-top: 1rem; height: 250px;">
+                                <canvas id="scaling-chart-height"></canvas>
+                              </div>
+                
+                <!-- Analysis Question -->
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label for="analysis-select" class="form-label">Which relationship would produce a linear graph?</label>
+                    <select id="analysis-select" class="form-select">
+                        <option value="">Select an option</option>
+                        <option value="height-time">Height vs. Time</option>
+                        <option value="height-timesq">Height vs. Time²</option>
+                        <option value="velocity-time">Velocity vs. Time</option>
+                        <option value="velocity-height">Velocity vs. Height</option>
+                    </select>
+                </div>
+
+                <button id="check-analysis" class="submit-btn">Check Analysis</button>
+                
+                <div id="feedback" class="feedback">
+                    <!-- Feedback will appear here -->
+                </div>
+
+                <!-- Constant of Proportionality Section -->
+                <div class="form-group" style="margin-top: 2rem;">
+                  <label class="form-label">
+                      From the relation, find the constant of proportionality:
+                  </label>
+                  <input type="text" id="proportionality-input" class="form-input" placeholder="Enter value (e.g., sqrt(2))">
+                  <button id="check-proportionality" class="submit-btn">Check Answer</button>
+                  <div id="proportionality-feedback" class="feedback"></div>
+                </div>
+
+                <!-- Derivation Prompt -->
+                <div class="form-group" style="margin-top: 1.5rem;">
+                  <label class="form-label">Final Step:</label>
+                  <p class="question-text">
+                      Use your scaling observations to derive the formula for time of flight:
+                  </p>
+                </div>
+
+                <!-- Final Formula Input Section -->
+                <div class="form-group" style="margin-top: 2rem;">
+                  <label class="form-label">
+                      Enter the complete formula for time of flight (use 'h' for height and 'g' for gravity):
+                  </label>
+                  <input type="text" id="formula-input" class="form-input" placeholder="e.g., t = √(2h/g)">
+                  <button id="check-formula" class="submit-btn">Check Formula</button>
+                  <div id="formula-feedback" class="feedback"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Certificate Section -->
+<div id="certificate" style="display: none; margin: 2rem auto; max-width: 800px; background: white; padding: 2rem; border: 10px solid var(--primary-color); text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+  <h1 style="color: var(--primary-color); font-size: 2.5rem; margin-bottom: 1rem;">Certificate of Completion</h1>
+  <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">This certifies that</p>
+  <h2 id="certificate-name" style="font-size: 2rem; color: #333; margin-bottom: 1.5rem; text-decoration: underline;"></h2>
+  <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">has successfully completed the Projectile Motion Simulation and Analysis</p>
+  <p style="font-size: 1.1rem; margin-bottom: 2rem;">on <span id="completion-date"></span></p>
+  <div style="border-top: 2px solid #333; padding-top: 1rem; width: 60%; margin: 0 auto;">
+      <p>Physics Education System</p>
+  </div>
+</div>
+
+    <footer>
+        <div>Developed by Sanabhi Gauraw | Powered by React + Three.js</div>
+        <div class="footer-links">
+            <a href="https://github.com/SanabhiG" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="#" id="fullscreen-btn">Enter Fullscreen</a>
+        </div>
+    </footer>
+
+
+
+    <script>
+        // DOM Elements
+        const darkModeBtn = document.getElementById('darkmode-btn');
+        const applyBtn = document.getElementById('apply-btn');
+        const initialHeightInput = document.getElementById('initial-height');
+        const initialVelocityInput = document.getElementById('initial-velocity');
+        const gravityInput = document.getElementById('gravity');
+        const addRowBtn = document.getElementById('add-row-btn');
+        const checkTableBtn = document.getElementById('check-table');
+        const addGravityRowBtn = document.getElementById('add-gravity-row-btn');
+        const checkGravityTableBtn = document.getElementById('check-gravity-table');
+        const analysisSelect = document.getElementById('analysis-select');
+        const checkAnalysisBtn = document.getElementById('check-analysis');
+        const feedbackElement = document.getElementById('feedback');
+        const dataTableBody = document.getElementById('data-table-body');
+        const gravityTableBody = document.getElementById('gravity-table-body');
+        const graphTabs = document.querySelectorAll('.graph-tab');
+        
+        // Simulation parameters
+        let initialHeight = 45;
+        let initialVelocity = 20;
+        let gravity = 10;
+        let dataPoints = [];
+        let gravityDataPoints = [];
+        let currentGraph = 'height-time';
+        
+        // Chart.js instance
+        let dataChart = null;
+        
+        // Initialize the simulation
+        function init() {
+            createDataTableRows(5);
+            createGravityTableRows(5);
+            initChart();
+            
+            // Set up event listeners for the simulation controls
+            setTimeout(() => {
+                // This would normally connect to your React simulation
+                console.log("Original simulation loaded");
+            }, 1000);
         }
         
-        fullscreenBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          toggleFullscreen();
+        // Apply new parameters to simulation
+        function applyParameters() {
+            initialHeight = parseFloat(initialHeightInput.value);
+            initialVelocity = parseFloat(initialVelocityInput.value);
+            gravity = parseFloat(gravityInput.value);
+            
+            // This would update your React simulation
+            console.log("Parameters updated:", {initialHeight, initialVelocity, gravity});
+            
+            dataPoints = [];
+            gravityDataPoints = [];
+            updateChart();
+        }
+        
+        // Create data table rows
+        function createDataTableRows(count) {
+            dataTableBody.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><input type="number" class="height-input" step="0.1" placeholder="Height"></td>
+                    <td><input type="number" class="time-input" step="0.1" placeholder="Time"></td>
+                    <td class="status-cell">-</td>
+                `;
+                dataTableBody.appendChild(row);
+            }
+        }
+        
+        // Create gravity data table rows
+        function createGravityTableRows(count) {
+            gravityTableBody.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><input type="number" class="gravity-input" step="0.1" placeholder="Gravity"></td>
+                    <td><input type="number" class="time-gravity-input" step="0.1" placeholder="Time"></td>
+                    <td class="gravity-status-cell">-</td>
+                `;
+                gravityTableBody.appendChild(row);
+            }
+        }
+        
+        // Add a new data row
+        function addDataRow() {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><input type="number" class="height-input" step="0.1" placeholder="Height"></td>
+                <td><input type="number" class="time-input" step="0.1" placeholder="Time"></td>
+                <td class="status-cell">-</td>
+            `;
+            dataTableBody.appendChild(row);
+        }
+        
+        // Add a new gravity data row
+        function addGravityDataRow() {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><input type="number" class="gravity-input" step="0.1" placeholder="Gravity"></td>
+                <td><input type="number" class="time-gravity-input" step="0.1" placeholder="Time"></td>
+                <td class="gravity-status-cell">-</td>
+            `;
+            gravityTableBody.appendChild(row);
+        }
+        
+        function checkDataValues() {
+    const heightInputs = document.querySelectorAll('.height-input');
+    const timeInputs = document.querySelectorAll('.time-input');
+    const statusCells = document.querySelectorAll('.status-cell');
+
+    dataPoints = [];
+
+    heightInputs.forEach((input, index) => {
+        const heightVal = parseFloat(input.value);
+        const timeVal = parseFloat(timeInputs[index].value);
+
+        if (isNaN(heightVal) || isNaN(timeVal)) {
+            statusCells[index].textContent = "No data";
+            statusCells[index].className = "status-cell";
+            return;
+        }
+
+        // Compute expected height from current initialHeight and g
+        const expectedHeight = initialHeight - 0.5 * gravity * timeVal * timeVal;
+        const tolerance = 0.5;
+
+        if (Math.abs(heightVal - expectedHeight) <= tolerance) {
+            statusCells[index].textContent = "✓ Correct";
+            statusCells[index].className = "status-cell correct-cell";
+            dataPoints.push({ time: timeVal, height: heightVal });
+        } else {
+            statusCells[index].textContent = "✗ Incorrect";
+            statusCells[index].className = "status-cell incorrect-cell";
+        }
+    });
+
+    updateChart();
+    dataTableCompleted = dataPoints.length >= 3;
+}
+
+        
+        // Check gravity data values
+        function checkGravityDataValues() {
+            const gravityInputs = document.querySelectorAll('.gravity-input');
+            const timeGravityInputs = document.querySelectorAll('.time-gravity-input');
+            const statusCells = document.querySelectorAll('.gravity-status-cell');
+            
+            gravityDataPoints = [];
+            
+            gravityInputs.forEach((input, index) => {
+                const gravityVal = parseFloat(input.value);
+                const timeVal = parseFloat(timeGravityInputs[index].value);
+                
+                if (isNaN(gravityVal) || isNaN(timeVal)) {
+                    statusCells[index].textContent = "No data";
+                    statusCells[index].className = "gravity-status-cell";
+                    return;
+                }
+                
+                // Calculate expected time using t = sqrt(2h/g)
+                const expectedTime = Math.sqrt((2 * initialHeight) / gravityVal);
+                const tolerance = 0.2; // Allow for small rounding differences
+                
+                if (Math.abs(timeVal - expectedTime) <= tolerance) {
+                    statusCells[index].textContent = "✓ Correct";
+                    statusCells[index].className = "gravity-status-cell correct-cell";
+                    gravityDataPoints.push({ gravity: gravityVal, time: timeVal });
+                } else {
+                    statusCells[index].textContent = "✗ Incorrect";
+                    statusCells[index].className = "gravity-status-cell incorrect-cell";
+                }
+            });
+            
+            updateChart();
+            gravityTableCompleted = gravityDataPoints.length >= 3;
+        }
+        
+        // Switch between graphs
+        function switchGraph(graphType) {
+            currentGraph = graphType;
+            updateChart();
+            
+            // Update active tab
+            graphTabs.forEach(tab => {
+                if (tab.dataset.graph === graphType) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+        }
+        
+        // Initialize the chart
+        function initChart() {
+            const ctx = document.getElementById('data-chart').getContext('2d');
+            dataChart = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Height vs. Time',
+                        data: [],
+                        backgroundColor: 'rgba(117, 0, 20, 0.7)',
+                        borderColor: 'rgba(117, 0, 20, 1)',
+                        pointRadius: 5,
+                        showLine: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Height (m)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Time (s)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Update the chart with current data
+        function updateChart() {
+            if (!dataChart) return;
+            
+            if (currentGraph === 'height-time') {
+                dataChart.data.datasets = [{
+                    label: 'Height vs. Time',
+                    data: dataPoints.map(point => ({
+                        x: point.time,
+                        y: point.height
+                    })),
+                    backgroundColor: 'rgba(117, 0, 20, 0.7)',
+                    borderColor: 'rgba(117, 0, 20, 1)',
+                    pointRadius: 5,
+                    showLine: true
+                }];
+                
+                dataChart.options.scales.x.title.text = 'Time (s)';
+                dataChart.options.scales.y.title.text = 'Height (m)';
+            } else if (currentGraph === 'time-gravity') {
+                dataChart.data.datasets = [{
+                    label: 'Time vs. Gravity',
+                    data: gravityDataPoints.map(point => ({
+                        x: point.gravity,
+                        y: point.time
+                    })),
+                    backgroundColor: 'rgba(0, 100, 200, 0.7)',
+                    borderColor: 'rgba(0, 100, 200, 1)',
+                    pointRadius: 5,
+                    showLine: true
+                }];
+                
+                dataChart.options.scales.x.title.text = 'Gravity (m/s²)';
+                dataChart.options.scales.y.title.text = 'Time (s)';
+            }
+            
+            dataChart.update();
+        }
+        
+        // Check analysis answer
+        function checkAnalysis() {
+            const selectedValue = analysisSelect.value;
+            
+            if (selectedValue === "height-timesq") {
+                feedbackElement.textContent = "Correct! Height vs. Time² produces a linear graph because the relationship is h = h₀ - ½gt², which is linear in t².";
+                feedbackElement.className = "feedback correct";
+            } else if (selectedValue) {
+                feedbackElement.textContent = "Not quite. Think about which relationship would eliminate the squared term in the equation.";
+                feedbackElement.className = "feedback incorrect";
+            } else {
+                feedbackElement.textContent = "Please select an option.";
+                feedbackElement.className = "feedback incorrect";
+            }
+        }
+        
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                createParticle(particlesContainer);
+            }
+        }
+        
+        function createParticle(container) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            const size = Math.random() * 5 + 10;
+            const posX = Math.random() * 100;
+            const duration = Math.random() * 20 + 10;
+            const delay = Math.random() * 20;
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${posX}%`;
+            particle.style.bottom = `-${size}px`;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.opacity = Math.random() * 0.5 + 0.2;
+            
+            container.appendChild(particle);
+            
+            // Reset particles when they go off screen
+            particle.addEventListener('animationiteration', () => {
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.bottom = `-${size}px`;
+                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+            });
+        }
+        
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+            setTimeout(createParticles, 1000);
+            
+            // Fullscreen functionality
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const simContainer = document.querySelector('.sim-container');
+            
+            function toggleFullscreen() {
+                if (!document.fullscreenElement) {
+                    simContainer.requestFullscreen().catch(err => {
+                        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                    });
+                    fullscreenBtn.textContent = 'Exit Fullscreen';
+                } else {
+                    document.exitFullscreen();
+                    fullscreenBtn.textContent = 'Enter Fullscreen';
+                }
+            }
+            
+            fullscreenBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                toggleFullscreen();
+            });
         });
         
-        fullscreenSymbol?.addEventListener('click', toggleFullscreen);
-      });
+        darkModeBtn.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            const particles = document.querySelectorAll('.particle');
+            particles.forEach(particle => {
+                if (document.body.classList.contains('dark-mode')) {
+                    particle.style.background = 'rgba(255, 85, 119, 0.7)';
+                } else {
+                    particle.style.background = 'rgba(117, 0, 20, 0.5)';
+                }
+            });
+            
+            darkModeBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️ Light Mode' : '🌙 Dark Mode';
+        });
+        
+        applyBtn.addEventListener('click', applyParameters);
+        addRowBtn.addEventListener('click', addDataRow);
+        checkTableBtn.addEventListener('click', checkDataValues);
+        addGravityRowBtn.addEventListener('click', addGravityDataRow);
+        checkGravityTableBtn.addEventListener('click', checkGravityDataValues);
+        checkAnalysisBtn.addEventListener('click', checkAnalysis);
+        
+        // Add event listeners for graph tabs
+        graphTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                switchGraph(tab.dataset.graph);
+            });
+        });
+
+        // Gravity scaling analysis
+        const gravityAnalysisSelect = document.getElementById('gravity-analysis-select');
+        const checkGravityAnalysisBtn = document.getElementById('check-gravity-analysis');
+        const gravityFeedbackElement = document.getElementById('gravity-feedback');
+        let scalingChart = null;
+
+        // Initialize scaling chart
+        function initScalingChart() {
+            const ctx = document.getElementById('scaling-chart').getContext('2d');
+            scalingChart = new Chart(ctx, {
+                type: 'scatter',
+                data: { datasets: [] },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: '' } },
+                        y: { title: { display: true, text: '' } }
+                    }
+                }
+            });
+        }
+
+        // Update scaling preview chart
+        function updateScalingChart(option) {
+            if (!scalingChart) return;
+
+            let dataset = [];
+            let xLabel = '', yLabel = '';
+
+            if (option === "time-gravity") {
+                dataset = gravityDataPoints.map(pt => ({ x: pt.gravity, y: pt.time }));
+                xLabel = "Gravity (m/s²)";
+                yLabel = "Time of Flight (s)";
+            }
+            else if (option === "time2-gravity") {
+                dataset = gravityDataPoints.map(pt => ({ x: pt.gravity, y: pt.time * pt.time }));
+                xLabel = "Gravity (m/s²)";
+                yLabel = "Time² (s²)";
+            }
+            else if (option === "time2-1overg") {
+                dataset = gravityDataPoints.map(pt => ({ x: 1 / pt.gravity, y: pt.time * pt.time }));
+                xLabel = "1 / Gravity (s²/m)";
+                yLabel = "Time² (s²)";
+            }
+
+            scalingChart.data.datasets = [{
+                label: option,
+                data: dataset,
+                backgroundColor: "rgba(200, 50, 50, 0.7)",
+                borderColor: "rgba(200, 50, 50, 1)",
+                pointRadius: 5,
+                showLine: true
+            }];
+            scalingChart.options.scales.x.title.text = xLabel;
+            scalingChart.options.scales.y.title.text = yLabel;
+            scalingChart.update();
+        }
+
+        // Check gravity analysis answer
+        function checkGravityAnalysis() {
+            const selected = gravityAnalysisSelect.value;
+
+            if (selected === "time2-1overg") {
+                gravityFeedbackElement.textContent = "Correct! Time² vs 1/Gravity is linear, matching t² ∝ h/g.";
+                gravityFeedbackElement.className = "feedback correct";
+                gravityAnalysisCompleted = true;
+                showCertificateIfCompleted();
+            }
+
+            updateScalingChart(selected);
+        }
+
+        // Hook into init
+        document.addEventListener('DOMContentLoaded', () => {
+            initScalingChart();
+        });
+
+        checkGravityAnalysisBtn.addEventListener('click', checkGravityAnalysis);
+
+        // Proportionality constant check
+        const proportionalityInput = document.getElementById('proportionality-input');
+        const checkProportionalityBtn = document.getElementById('check-proportionality');
+        const proportionalityFeedback = document.getElementById('proportionality-feedback');
+
+        function normalizeMathInput(str) {
+            return str.replace(/\s+/g, '').toLowerCase()
+                      .replace(/√/g, 'sqrt')
+                      .replace(/\\sqrt/g, 'sqrt');
+        }
+
+        const heightAnalysisSelect = document.getElementById('height-analysis-select');
+        const checkHeightAnalysisBtn = document.getElementById('check-height-analysis');
+        const heightFeedbackElement = document.getElementById('height-feedback');
+        let scalingChartHeight = null;
+
+        // Initialize height scaling chart
+        function initScalingChartHeight() {
+            const ctx = document.getElementById('scaling-chart-height').getContext('2d');
+            scalingChartHeight = new Chart(ctx, {
+                type: 'scatter',
+                data: { datasets: [] },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: '' } },
+                        y: { title: { display: true, text: '' } }
+                    }
+                }
+            });
+        }
+
+        // Update height scaling preview chart
+        function updateScalingChartHeight(option) {
+            if (!scalingChartHeight) return;
+
+            let dataset = [];
+            let xLabel = '', yLabel = '';
+
+            if (option === "height-time") {
+                dataset = dataPoints.map(pt => ({ x: pt.time, y: pt.height }));
+                xLabel = "Time (s)";
+                yLabel = "Height (m)";
+            }
+            else if (option === "height-timesq") {
+                dataset = dataPoints.map(pt => ({ x: pt.time * pt.time, y: pt.height }));
+                xLabel = "Time² (s²)";
+                yLabel = "Height (m)";
+            }
+            else if (option === "sqrt-height-time") {
+                dataset = dataPoints.map(pt => ({ x: pt.time, y: Math.sqrt(pt.height) }));
+                xLabel = "Time (s)";
+                yLabel = "√Height (√m)";
+            }
+
+            scalingChartHeight.data.datasets = [{
+                label: option,
+                data: dataset,
+                backgroundColor: "rgba(50, 100, 200, 0.7)",
+                borderColor: "rgba(50, 100, 200, 1)",
+                pointRadius: 5,
+                showLine: true
+            }];
+            scalingChartHeight.options.scales.x.title.text = xLabel;
+            scalingChartHeight.options.scales.y.title.text = yLabel;
+            scalingChartHeight.update();
+        }
+
+        // Check height analysis answer
+        function checkHeightAnalysis() {
+            const selected = heightAnalysisSelect.value;
+
+            if (selected === "height-timesq") {
+                heightFeedbackElement.textContent = "Correct! Height vs. Time² is linear, matching h = h₀ - ½gt².";
+                heightFeedbackElement.className = "feedback correct";
+                heightAnalysisCompleted = true;
+                showCertificateIfCompleted();
+            }
+
+            updateScalingChartHeight(selected);
+        }
+
+        // Add this to your initialization function
+        function init() {
+            createDataTableRows(5);
+            createGravityTableRows(5);
+            initChart();
+            initScalingChart(); // For gravity scaling
+            initScalingChartHeight(); // For height scaling
+            
+            // Set up event listeners for the simulation controls
+            setTimeout(() => {
+                // This would normally connect to your React simulation
+                console.log("Original simulation loaded");
+            }, 1000);
+        }
+
+        // Add this event listener
+        checkHeightAnalysisBtn.addEventListener('click', checkHeightAnalysis);
+
+        function checkProportionality() {
+            let userAns = normalizeMathInput(proportionalityInput.value);
+
+            if (userAns === "sqrt(2)" || userAns === "√2" || userAns === "1.414" || userAns === "1.4142") {
+                proportionalityFeedback.innerHTML = "✅ Correct! The constant of proportionality is \\(\\sqrt{2}\\).";
+                proportionalityFeedback.className = "feedback correct";
+                proportionalityCompleted = true;
+                showCertificateIfCompleted();
+            }
+
+            // Re-render LaTeX
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        checkProportionalityBtn.addEventListener('click', checkProportionality);
+
+
+        // Track completion status
+let userName = "";
+let dataTableCompleted = false;
+let gravityTableCompleted = false;
+let proportionalityCompleted = false;
+let formulaCompleted = false;
+let gravityAnalysisCompleted = false;
+let heightAnalysisCompleted = false;
+
+// Check if all tasks are completed
+function checkAllTasksCompleted() {
+    return dataTableCompleted && gravityTableCompleted && proportionalityCompleted && 
+           formulaCompleted && gravityAnalysisCompleted && heightAnalysisCompleted;
+}
+
+// Show certificate if all tasks are completed
+function showCertificateIfCompleted() {
+    if (checkAllTasksCompleted()) {
+        document.getElementById('certificate-name').textContent = userName;
+        document.getElementById('completion-date').textContent = new Date().toLocaleDateString();
+        document.getElementById('certificate').style.display = 'block';
+        
+        // Scroll to certificate
+        setTimeout(() => {
+            document.getElementById('certificate').scrollIntoView({ behavior: 'smooth' });
+        }, 1000);
+    }
+}
+
+// Check formula input
+function checkFormula() {
+    let userFormula = document.getElementById('formula-input').value;
+    userFormula = userFormula.replace(/\s+/g, '').toLowerCase();
+    
+    // Allow different variations of the formula
+    const correctFormulas = [
+        't=√(2h/g)',
+        't=sqrt(2h/g)',
+        't=√(2*h/g)',
+        't=sqrt(2*h/g)',
+        't=√(2h÷g)',
+        't=sqrt(2h÷g)'
+    ];
+    
+    if (correctFormulas.includes(userFormula)) {
+        document.getElementById('formula-feedback').innerHTML = "✅ Correct! The formula is \\(t = \\sqrt{\\frac{2h}{g}}\\)";
+        document.getElementById('formula-feedback').className = "feedback correct";
+        formulaCompleted = true;
+        showCertificateIfCompleted();
+    } else if (userFormula) {
+        document.getElementById('formula-feedback').innerHTML = "❌ Not quite. Remember the relationship: \\(t^2 = \\frac{2h}{g}\\)";
+        document.getElementById('formula-feedback').className = "feedback incorrect";
+    } else {
+        document.getElementById('formula-feedback').innerHTML = "⚠️ Please enter the formula.";
+        document.getElementById('formula-feedback').className = "feedback incorrect";
+    }
+    
+    // Re-render LaTeX
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+}
+
+// Username modal functionality
+document.getElementById('start-btn').addEventListener('click', function() {
+    userName = document.getElementById('user-name').value.trim();
+    if (userName) {
+        document.getElementById('username-modal').style.display = 'none';
+    } else {
+        alert('Please enter your name to continue.');
+    }
+});
+
+// Formula check event listener
+document.getElementById('check-formula').addEventListener('click', checkFormula);
+
+// Allow pressing Enter in the username field
+document.getElementById('user-name').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        document.getElementById('start-btn').click();
+    }
+});
+
     </script>
-  </body>
+
+<script>
+  // Add this to your existing JavaScript
+  
+  // Fullscreen functionality
+  const fullscreenBtn = document.getElementById('fullscreen-btn');
+  const simContainer = document.querySelector('.sim-container');
+  
+  function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+          simContainer.requestFullscreen().catch(err => {
+              console.error(`Error attempting to enable fullscreen: ${err.message}`);
+          });
+          fullscreenBtn.textContent = 'Exit Fullscreen';
+          
+          // Add a class to handle fullscreen styling
+          document.body.classList.add('fullscreen-active');
+      } else {
+          document.exitFullscreen();
+          fullscreenBtn.textContent = 'Enter Fullscreen';
+          
+          // Remove the fullscreen class
+          document.body.classList.remove('fullscreen-active');
+      }
+  }
+  
+  // Listen for fullscreen changes to update UI correctly
+  document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) {
+          fullscreenBtn.textContent = 'Enter Fullscreen';
+          document.body.classList.remove('fullscreen-active');
+      }
+  });
+  
+  fullscreenBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleFullscreen();
+  });
+  
+  // Also add this CSS to handle the fullscreen state
+  </script>
+  
+  <style>
+  /* Add these styles to your existing CSS */
+  body.fullscreen-active .sim-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      border-radius: 0;
+  }
+  
+  body.fullscreen-active .header-container,
+  body.fullscreen-active .form-panel,
+  body.fullscreen-active footer {
+      display: none;
+  }
+  
+  body.fullscreen-active .split-container {
+      height: 100vh;
+      margin: 0;
+  }
+  </style>
+
+    <!-- This would load your original React simulation -->
+    <script type="module" crossorigin src="./assets/projmot.js"></script>
+</body>
 </html>
