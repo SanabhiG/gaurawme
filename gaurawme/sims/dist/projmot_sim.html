@@ -131,6 +131,15 @@
             flex-direction: column;
         }
 
+        [data-theme="dark"] {
+  --certificate: #222;  /* dark mode */
+}
+
+.certificate-container {
+  background: var(--certificate-bg);
+  color: #000;  /* always fixed black text */
+}
+
         .sim-panel .sim-container {
   flex: 1;
   min-height: 400px;
@@ -759,7 +768,7 @@
     </div>
     
     <!-- Certificate Section -->
-<div id="certificate" style="display: none; margin: 2rem auto; max-width: 800px; background: white; padding: 2rem; border: 10px solid var(--primary-color); text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+<div id="certificate" style="display: none; margin: 2rem auto; max-width: 800px; background: rgb(124, 112, 112); padding: 2rem; border: 10px solid var(--primary-color); text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
   <h1 style="color: var(--primary-color); font-size: 2.5rem; margin-bottom: 1rem;">Certificate of Completion</h1>
   <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">This certifies that</p>
   <h2 id="certificate-name" style="font-size: 2rem; color: #333; margin-bottom: 1.5rem; text-decoration: underline;"></h2>

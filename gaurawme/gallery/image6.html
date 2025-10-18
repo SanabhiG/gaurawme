@@ -21,10 +21,56 @@
       padding: 2rem;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     }
+    .image-container {
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .image-container img {
+      max-width: 80%;
+      max-height: 300px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .image-container img:hover {
+      transform: scale(1.02);
+    }
+    /* Modal styles for zoomed view */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+    }
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 90%;
+      margin-top: 2%;
+    }
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
     h1 {
       font-size: 2.4rem;
       text-align: center;
       background: linear-gradient(to left, #0a192f, #4FD1C5);
+      -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
     ul {
@@ -54,8 +100,16 @@
   </style>
 </head>
 <body>
+  <div id="imageModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+  </div>
+
   <div class="container">
     <h1>FIRST Robotics Competition (Team 2714 BBQ)</h1>
+    <div class="image-container">
+      <img src="..\..\assets\BBQ_Team.jpeg" alt="FRC Robot Team 2714" onclick="openModal(this)">
+    </div>
     <ul>
       <li><i class="fas fa-robot"></i> Competed at FRC World Championships as part of the Electrical & Programming subteam</li>
       <li><i class="fas fa-trophy"></i> Advanced to semifinals as alliance captain</li>
@@ -67,6 +121,25 @@
       <li><i class="fas fa-brain"></i> Gained hands-on engineering & problem-solving experience</li>
     </ul>
   </div>
-  <footer>&copy; 2025 Sanabhi Gauraw. All rights reserved.</footer>
+
+  <script>
+    function openModal(img) {
+      const modal = document.getElementById("imageModal");
+      const modalImg = document.getElementById("modalImage");
+      modal.style.display = "block";
+      modalImg.src = img.src;
+    }
+
+    function closeModal() {
+      document.getElementById("imageModal").style.display = "none";
+    }
+
+    // Close modal when clicking outside the image
+    document.getElementById("imageModal").onclick = function(event) {
+      if (event.target === this) {
+        closeModal();
+      }
+    }
+  </script>
 </body>
 </html>

@@ -114,7 +114,7 @@
     .social-boxes {
       display: flex;
       justify-content: center;
-      gap: 30px;
+      gap: 30px; /* Increased gap */
       margin: 2rem 0;
       flex-wrap: wrap;
     }
@@ -129,8 +129,8 @@
     .social-box {
       background-color: #2D3748;
       color: #E2E8F0;
-      width: 80px;
-      height: 80px;
+      width: 70px; /* Increased from 80px */
+      height: 70px; /* Increased from 80px */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -139,15 +139,52 @@
       margin-bottom: 0.5rem;
     }
 
+    .social-box i {
+      font-size: 1.75 rem; /* Make icons bigger */
+    }
+
     .social-box:hover {
       background-color: rgba(79, 209, 197, 0.15);
-      box-shadow: 0 0 15px #4FD1C5;
+      box-shadow: 0 0 20px #4FD1C5; /* Enhanced glow effect */
+      transform: scale(1.1); /* Add slight scale on hover */
     }
 
     .social-text {
       color: #1A202C;
-      font-size: 0.9rem;
+      font-size: 1rem; /* Slightly larger text */
       text-align: center;
+      font-weight: 500;
+    }
+
+    /* Update responsive sizes */
+    @media (max-width: 768px) {
+      .social-boxes {
+        gap: 25px;
+      }
+      
+      .social-box {
+        width: 80px; /* Adjusted for mobile */
+        height: 80px;
+      }
+      
+      .social-box i {
+        font-size: 2rem; /* Adjusted icon size for mobile */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .social-box {
+        width: 70px; /* Adjusted for small mobile */
+        height: 70px;
+      }
+      
+      .social-box i {
+        font-size: 1.8rem; /* Adjusted icon size for small mobile */
+      }
+      
+      .social-text {
+        font-size: 0.9rem;
+      }
     }
 
     /* ====================== */
@@ -274,7 +311,7 @@
 
     .carousel-item img {
       width: 100%;
-      height: 200px;
+      height: 300px; /* Increased height */
       object-fit: cover;
     }
 
@@ -350,6 +387,10 @@
         height: 40px;
         font-size: 1.5rem;
       }
+      
+      .carousel-item img {
+        height: 300px; /* Adjusted for mobile */
+      }
     }
 
     @media (max-width: 480px) {
@@ -380,6 +421,10 @@
       
       .carousel-item {
         width: 250px;
+      }
+      
+      .carousel-item img {
+        height: 250px; /* Adjusted for small mobile */
       }
     }
 
@@ -485,7 +530,9 @@
       <h2>Gallery</h2>
     </div>
     <div class="carousel-wrapper">
-      <button class="carousel-btn left" aria-label="Previous image">&#10094;</button>
+      <button class="carousel-btn left" aria-label="Previous image">
+        <i class="fas fa-chevron-left"></i>
+      </button>
       <div id="carousel-track">
         <!-- Carousel Items - 10 images as requested -->
         <a href="gaurawme/gallery/image1.html" class="carousel-item">
@@ -493,7 +540,7 @@
           <div class="caption">Acoustics Research</div>
         </a>
         <a href="gaurawme/gallery/image2.html" class="carousel-item">
-          <img src="img2.jpg" alt="Description of Image 2" loading="lazy" />
+          <img src="assets/UNTREM_10th.png" alt="Three Students Inducted into the UNT REM Class of 2026" loading="lazy" />
           <div class="caption">UNT Research Experience and Mentorship</div>
         </a>
         <a href="gaurawme/gallery/image3.html" class="carousel-item">
@@ -509,7 +556,7 @@
           <div class="caption">Texas Junior Academy of Sciences</div>
         </a>
         <a href="gaurawme/gallery/image6.html" class="carousel-item">
-          <img src="img6.jpg" alt="Description of Image 6" loading="lazy" />
+          <img src="assets/BBQ_Solo.jpeg" alt="Description of Image 6" loading="lazy" />
           <div class="caption">First Robotics Challenge</div>
         </a>
         <a href="gaurawme/gallery/image7.html" class="carousel-item">
@@ -521,7 +568,7 @@
           <div class="caption">Texas Science and Engineering Fair</div>
         </a>
         <a href="gaurawme/gallery/image9.html" class="carousel-item">
-          <img src="assets/9_TFS_1.JPG" alt="Description of Image 9" loading="lazy" />
+          <img src="assets/TFS_Event.JPG" alt="Description of Image 9" loading="lazy" />
           <div class="caption">Texas French Symposium</div>
         </a>
         <a href="gaurawme/gallery/image10.html" class="carousel-item">
@@ -529,7 +576,9 @@
           <div class="caption">U.S. National Chemistry Olympiad</div>
         </a>
       </div>        
-      <button class="carousel-btn right" aria-label="Next image">&#10095;</button>
+      <button class="carousel-btn right" aria-label="Next image">
+        <i class="fas fa-chevron-right"></i>
+      </button>
     </div>
     <div class="carousel-dots" id="carousel-dots">
       <!-- Dots will be added by JavaScript -->
@@ -673,19 +722,21 @@
       lastScrollTop = scrollTop;
     }
 
-    // Carousel functionality
+    // Fixed Carousel functionality
     function initCarousel() {
       const track = document.getElementById('carousel-track');
-      const items = track.getElementsByClassName('carousel-item');
+      const items = track.querySelectorAll('.carousel-item');
       const dotsContainer = document.getElementById('carousel-dots');
       const prevBtn = document.querySelector('.carousel-btn.left');
       const nextBtn = document.querySelector('.carousel-btn.right');
       
-      let currentIndex = 0;
+      const itemCount = items.length;
       const itemWidth = items[0].offsetWidth + 20; // width + gap
+      let currentIndex = 0;
+      let isAnimating = false;
       
-      // Create dots
-      for (let i = 0; i < items.length; i++) {
+      // Create dots for each item
+      for (let i = 0; i < itemCount; i++) {
         const dot = document.createElement('button');
         dot.classList.add('carousel-dot');
         if (i === 0) dot.classList.add('active');
@@ -693,9 +744,15 @@
         dotsContainer.appendChild(dot);
       }
       
-      const dots = dotsContainer.getElementsByClassName('carousel-dot');
+      const dots = dotsContainer.querySelectorAll('.carousel-dot');
       
-      function updateCarousel() {
+      function updateCarousel(instant = false) {
+        if (instant) {
+          track.style.transition = 'none';
+        } else {
+          track.style.transition = 'transform 0.5s ease-in-out';
+        }
+        
         track.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
         
         // Update active dot
@@ -706,18 +763,51 @@
       }
       
       function goToSlide(index) {
+        if (isAnimating) return;
+        isAnimating = true;
+        
         currentIndex = index;
-        if (currentIndex >= items.length) currentIndex = 0;
-        if (currentIndex < 0) currentIndex = items.length - 1;
         updateCarousel();
+        
+        setTimeout(() => {
+          isAnimating = false;
+        }, 500);
       }
       
       function nextSlide() {
-        goToSlide(currentIndex + 1);
+        if (isAnimating) return;
+        isAnimating = true;
+        
+        // If we're at the last item, loop back to the first
+        if (currentIndex === itemCount - 1) {
+          currentIndex = 0;
+          updateCarousel();
+        } else {
+          currentIndex++;
+          updateCarousel();
+        }
+        
+        setTimeout(() => {
+          isAnimating = false;
+        }, 500);
       }
       
       function prevSlide() {
-        goToSlide(currentIndex - 1);
+        if (isAnimating) return;
+        isAnimating = true;
+        
+        // If we're at the first item, loop back to the last
+        if (currentIndex === 0) {
+          currentIndex = itemCount - 1;
+          updateCarousel();
+        } else {
+          currentIndex--;
+          updateCarousel();
+        }
+        
+        setTimeout(() => {
+          isAnimating = false;
+        }, 500);
       }
       
       // Event listeners
@@ -726,6 +816,9 @@
       
       // Auto-play
       setInterval(nextSlide, 5000);
+      
+      // Initialize
+      updateCarousel(true);
     }
 
     // Enhanced dots animation for banner background with thicker lines
