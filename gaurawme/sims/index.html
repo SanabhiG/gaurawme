@@ -32,6 +32,22 @@
         padding: 2rem 1rem;
       }
 
+            html {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+      }
+
+      body::-webkit-scrollbar {
+        display: none; /* Chrome, Safari and Opera */
+      }
+
+    /* Ensure scrolling still works */
+    body {
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        overflow-y: auto; /* Allow vertical scrolling */
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+    }
+
       header {
         font-family: 'Orbitron', sans-serif;
         font-size: 2.8rem;
@@ -126,7 +142,8 @@
     <div class="subtitle">Projects by Sanabhi Gauraw</div>
 
     <main class="grid">
-      <!-- Example card 1 -->
+
+      <!-- Card 1 -->
       <div class="card">
         <img src="../../assets/11_PX_DRG.jpg" alt="Drag Force Simulator Screenshot">
         <div class="card-content">
@@ -136,7 +153,7 @@
         </div>
       </div>
 
-      <!-- Example card 2 -->
+      <!-- Card 2 -->
       <div class="card">
         <img src="../../assets/11_PX_EFLX.jpg" alt="Vector Flux Screenshot">
         <div class="card-content">
@@ -146,7 +163,16 @@
         </div>
       </div>
 
-      <!-- Add more cards for each project -->
+      <!-- Card 3 -->
+      <div class="card">
+        <img src="../../assets/11_PX_PROJ.jpg" alt="Projectile Motion Screenshot">
+        <div class="card-content">
+          <h2>Projectile Motion Simulator</h2>
+          <p>A web-based vector flux calculator built with Three.js. Lets users simulate flux in 3D.</p>
+          <a href="/gaurawme/sims/dist/projmot_sim.html" target="_blank">Launch App</a>
+        </div>
+      </div>
+
     </main>
   </body>
 </html>

@@ -11,13 +11,8 @@
 
 /* Body styling with flex layout for sticky footer */
 body {
-<<<<<<< Updated upstream
-  background-color: #453841; /* Dark purple background */
-  color: #fa8072; /* Salmon text color */
-=======
   background-color: #1A202C;
   color: #E2E8F0;
->>>>>>> Stashed changes
   line-height: 1.6;
   min-height: 100vh; /* Minimum full viewport height */
   display: flex;
@@ -226,60 +221,6 @@ section h2 {
   flex-direction: column;
 }
 
-<<<<<<< Updated upstream
-/* Form base styling */
-form {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: #fdfbfb; /* Light gray-pink */
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-/* Form labels */
-form label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #555;
-  font-weight: bold;
-}
-
-/* Form inputs and textarea */
-form input, form textarea {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1.5rem;
-  border: 1px solid #ccc;
-  border-radius: 0.75rem;
-  background-color: #fff;
-  transition: border 0.3s, box-shadow 0.3s;
-  font-size: 1rem;
-}
-
-/* Input focus states */
-form input:focus, form textarea:focus {
-  border-color: #fa8072; /* Salmon focus */
-  box-shadow: 0 0 6px rgba(250, 128, 114, 0.3);
-  outline: none;
-}
-
-/* Submit button */
-form button[type="submit"] {
-  background-color: #fa8072; /* Salmon */
-  color: white;
-  border: none;
-  padding: 0.75rem 2rem;
-  border-radius: 2rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-/* Submit button hover */
-form button[type="submit"]:hover {
-  background-color: #e66c5c; /* Darker salmon */
-=======
 /* Generic section spacing */
 section {
   padding: 3rem 1rem;
@@ -429,7 +370,6 @@ form button[type="submit"] {
 
 form button[type="submit"]:hover {
   background-color: #319795;
->>>>>>> Stashed changes
 }
 
 /* ====================== */
@@ -437,45 +377,11 @@ form button[type="submit"]:hover {
 /* ====================== */
 
 footer {
-<<<<<<< Updated upstream
-  text-align: center;
-  padding: 1rem 0;
-  font-size: 0.9rem;
-  border-top: 1px solid #fa8072; /* Salmon top border */
-}
-
-/* ====================== */
-/* === RESPONSIVE === */
-/* ====================== */
-
-@media (max-width: 600px) {
-  /* Single column for projects on mobile */
-  #projects .project-list {
-    grid-template-columns: 1fr;
-  }
-  
-  /* Smaller nav link spacing */
-  nav a {
-    margin-left: 1rem;
-  }
-  
-  /* Compact social buttons */
-  .social-boxes {
-    gap: 10px;
-  }
-  
-  .social-box {
-    width: 70px;
-    height: 70px;
-    border-radius: 50px;
-  }
-=======
   border-top: 1px solid #4FD1C5;
   color: #A0AEC0;
   text-align: center;
   padding: 1.5rem;
   margin-top: auto;
->>>>>>> Stashed changes
 }
 
 /* ====================== */
