@@ -22,19 +22,18 @@
       }
 
       html {
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; 
+        -ms-overflow-style: none; 
       }
 
       body::-webkit-scrollbar {
-        display: none; /* Chrome, Safari and Opera */
+        display: none; 
       }
 
-    /* Ensure scrolling still works */
     body {
-        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-        overflow-y: auto; /* Allow vertical scrolling */
-        overflow-x: hidden; /* Prevent horizontal scrolling */
+        -webkit-overflow-scrolling: touch; 
+        overflow-y: auto; 
+        overflow-x: hidden; 
     }
 
       section {
@@ -236,26 +235,27 @@
         transition: transform 0.5s ease-in-out;
         padding: 0 10px;
       }
-      .carousel-item {
-        display: flex;
-        flex-direction: column;
-        width: 280px;
-        flex-shrink: 0;
-        text-decoration: none;
-        background-color: #f9f9f9;
-        border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        transition: transform 0.3s, box-shadow 0.3s;
-        overflow: hidden;
-      }
+    .carousel-item {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    flex-shrink: 0;
+    text-decoration: none;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+    }
+
+    .carousel-item img {
+    width: 100%;
+    height: 250px; /* Changed from 200px to 250px - 25% taller */
+    object-fit: cover;
+    }
       .carousel-item:hover {
         transform: scale(1.05);
         box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-      }
-      .carousel-item img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
       }
       .caption {
         padding: 0.8rem;
@@ -525,7 +525,7 @@
             <div class="caption">Beal Bank Science and Engineering Fair</div>
           </a>
           <a href="gaurawme/gallery/image8.html" class="carousel-item">
-            <img src="assets/9_SF_1.JPEG" alt="Texas Science and Engineering Fair" loading="lazy" />
+            <img src="assets/9_SF_CERT.jpg" alt="Texas Science and Engineering Fair" loading="lazy" />
             <div class="caption">Texas Science and Engineering Fair</div>
           </a>
           <a href="gaurawme/gallery/image9.html" class="carousel-item">

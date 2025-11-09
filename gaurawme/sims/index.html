@@ -6,78 +6,174 @@
     <title>Sanabhi Gauraw | Maker Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-      :root {
-        --neon-teal: #00ffc8;
-        --cosmic-purple: #6e00ff;
-        --deep-space: #0a192f;
-      }
-
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       }
-
       body {
-        font-family: 'JetBrains Mono', monospace;
-        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-        color: #e0e0e0;
+        background-color: #1A202C;
+        color: #E2E8F0;
+        line-height: 1.6;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        padding: 2rem 1rem;
       }
 
-            html {
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* IE and Edge */
+      html {
+        scrollbar-width: none; 
+        -ms-overflow-style: none; 
       }
 
       body::-webkit-scrollbar {
-        display: none; /* Chrome, Safari and Opera */
+        display: none; 
       }
 
-    /* Ensure scrolling still works */
     body {
-        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-        overflow-y: auto; /* Allow vertical scrolling */
-        overflow-x: hidden; /* Prevent horizontal scrolling */
+        -webkit-overflow-scrolling: touch; 
+        overflow-y: auto; 
+        overflow-x: hidden; 
     }
 
-      header {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 2.8rem;
+      section {
+        padding: 2rem 1rem;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1200px;
+      }
+      .section-header {
         text-align: center;
-        letter-spacing: 0.2em;
-        color: var(--neon-teal);
-        text-shadow: 0 0 12px var(--neon-teal);
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+      }
+      .nav {
+        background-color: #2D3748;
+        border-bottom: 1px solid #4FD1C5;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        transition: transform 0.3s ease;
+      }
+      .nav.hidden {
+        transform: translateY(-100%);
+      }
+      .nav h1 {
+        font-size: 1.3rem;
+        margin-left: 0.5rem;
+        color: #E2E8F0;
+      }
+      .nav-links {
+        display: flex;
+        gap: 1.5rem;
+        margin-right: 0.5rem;
+      }
+      a {
+        color: #4FD1C5;
+        text-decoration: none;
+      }
+      a:active {
+        color: #319795;
+      }
+      a:hover {
+        color: #F6AD55;
+      }
+      a:visited {
+        color: #81E6D9;
+      }
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: #4FD1C5;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      .banner {
+        background: #4FD1C5;
+        color: #1A202C;
+        padding: 6rem 1rem 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        margin-top: 60px;
+      }
+      .banner-content {
+        position: relative;
+        z-index: 2;
+      }
+      .banner h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+      .tagline {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        min-height: 2rem;
+      }
+      .social-boxes {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 1.5rem 0;
+        flex-wrap: wrap;
+      }
+      .social-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+      }
+      .social-box {
+        background-color: #2D3748;
+        color: #E2E8F0;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: 0.3s;
         margin-bottom: 0.5rem;
       }
-
-      .subtitle {
+      .social-box i {
+        font-size: 1.5rem;
+      }
+      .social-box:hover {
+        background-color: rgba(79, 209, 197, 0.15);
+        box-shadow: 0 0 15px #4FD1C5;
+        transform: scale(1.1);
+      }
+      .social-text {
+        color: #1A202C;
+        font-size: 0.9rem;
         text-align: center;
-        font-size: 1.2rem;
-        margin-bottom: 3rem;
-        color: rgba(200, 255, 255, 0.8);
+        font-weight: 500;
       }
 
+      /* Updated Grid and Card Styles */
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         gap: 2rem;
         width: 100%;
-        max-width: 1100px;
+        max-width: 1200px;
+        padding: 2rem 1rem;
       }
 
       .card {
-        background: rgba(0, 0, 0, 0.3);
-        border: 1px solid rgba(0, 255, 200, 0.25);
-        border-radius: 16px;
-        box-shadow: 0 0 20px rgba(0, 255, 200, 0.15);
+        background-color: #2D3748;
+        border: 1px solid #4FD1C5;
+        border-radius: 12px;
         overflow: hidden;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         display: flex;
@@ -85,64 +181,218 @@
       }
 
       .card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 0 25px rgba(0, 255, 200, 0.35);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(79, 209, 197, 0.3);
       }
 
       .card img {
         width: 100%;
-        height: 290px;
+        height: 220px;
         object-fit: cover;
       }
 
       .card-content {
-        padding: 1.2rem;
+        padding: 1.5rem;
         flex: 1;
+        display: flex;
+        flex-direction: column;
       }
 
       .card-content h2 {
         font-size: 1.4rem;
-        margin-bottom: 0.6rem;
-        color: var(--neon-teal);
-        text-shadow: 0 0 6px var(--neon-teal);
+        margin-bottom: 0.8rem;
+        color: #4FD1C5;
       }
 
       .card-content p {
         font-size: 0.95rem;
         line-height: 1.5;
-        color: rgba(220, 240, 240, 0.85);
-        margin-bottom: 1rem;
+        color: #CBD5E0;
+        margin-bottom: 1.5rem;
+        flex: 1;
       }
 
       .card-content a {
         display: inline-block;
-        padding: 0.5rem 1rem;
-        border: 1px solid var(--neon-teal);
-        border-radius: 8px;
-        color: var(--neon-teal);
+        padding: 0.8rem 1.5rem;
+        background-color: #4FD1C5;
+        color: #1A202C;
         text-decoration: none;
-        transition: background 0.3s ease, color 0.3s ease;
+        border-radius: 6px;
+        font-weight: 600;
+        text-align: center;
+        transition: background-color 0.3s ease;
+        border: none;
+        cursor: pointer;
       }
 
       .card-content a:hover {
-        background: var(--neon-teal);
-        color: #0a192f;
+        background-color: #319795;
+        color: #1A202C;
       }
 
       footer {
-        margin-top: 3rem;
-        font-size: 0.9rem;
-        color: rgba(200, 255, 200, 0.6);
+        border-top: 1px solid #4FD1C5;
+        color: #A0AEC0;
         text-align: center;
+        padding: 1.5rem;
+        margin-top: auto;
+        width: 100%;
+      }
+
+      @media (max-width: 768px) {
+        .nav {
+          flex-direction: row;
+          padding: 0.8rem;
+        }
+        .nav h1 {
+          font-size: 1.2rem;
+        }
+        .nav-links {
+          position: fixed;
+          top: 60px;
+          right: 0;
+          background-color: #2D3748;
+          width: 100%;
+          flex-direction: column;
+          align-items: center;
+          padding: 1rem 0;
+          transform: translateY(-100%);
+          transition: transform 0.3s ease;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .nav-links.active {
+          transform: translateY(0);
+        }
+        .mobile-menu-btn {
+          display: block;
+        }
+        .banner {
+          padding: 5rem 1rem 1.5rem;
+          margin-top: 50px;
+        }
+        .banner h1 {
+          font-size: 1.8rem;
+        }
+        .tagline {
+          font-size: 1.1rem;
+        }
+        .social-boxes {
+          gap: 15px;
+        }
+        .social-box {
+          width: 55px;
+          height: 55px;
+        }
+        .social-box i {
+          font-size: 1.4rem;
+        }
+        .social-text {
+          font-size: 0.85rem;
+        }
+        .grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+          padding: 1.5rem 1rem;
+        }
+        .card img {
+          height: 200px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .nav h1 {
+          font-size: 1.1rem;
+        }
+        .nav-links {
+          gap: 1rem;
+        }
+        .banner h1 {
+          font-size: 1.6rem;
+        }
+        .tagline {
+          font-size: 1rem;
+        }
+        .social-boxes {
+          gap: 12px;
+        }
+        .social-box {
+          width: 50px;
+          height: 50px;
+        }
+        .social-box i {
+          font-size: 1.3rem;
+        }
+        .social-text {
+          font-size: 0.8rem;
+        }
+        .grid {
+          padding: 1rem 0.8rem;
+        }
+        .card img {
+          height: 180px;
+        }
+        .card-content {
+          padding: 1.2rem;
+        }
+      }
+
+      button, a {
+        -webkit-tap-highlight-color: transparent;
+      }
+      html, body {
+        overflow-x: hidden;
+        width: 100%;
       }
     </style>
   </head>
   <body>
-    <header>Maker Portfolio</header>
-    <div class="subtitle">Projects by Sanabhi Gauraw</div>
+    <header class="nav" id="main-header">
+      <h1>Sanabhi Gauraw</h1>
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </header>
 
-    <main class="grid">
+    <header class="banner">
+      <div class="banner-content">
+        <h1>Maker Portfolio</h1>
+        <p class="tagline">Interactive Physics Simulations & Projects</p>
+        <div class="social-boxes">
+          <a href="https://www.linkedin.com/in/sanabhi-gauraw-b8ab4b265" target="_blank" rel="noopener noreferrer" class="social-link">
+            <div class="social-box">
+              <i class="fab fa-linkedin"></i>
+            </div>
+            <span class="social-text">LinkedIn</span>
+          </a>
+          <a href="mailto:sanabhi.gauraw.home@gmail.com" class="social-link">
+            <div class="social-box">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <span class="social-text">Email</span>
+          </a>
+          <a href="/gaurawme/resume/resume.html" target="_blank" rel="noopener noreferrer" class="social-link">
+            <div class="social-box">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <span class="social-text">Resume</span>
+          </a>
+          <a href="https://github.com/SanabhiG" target="_blank" rel="noopener noreferrer" class="social-link">
+            <div class="social-box">
+              <i class="fab fa-github"></i>
+            </div>
+            <span class="social-text">GitHub</span>
+          </a>
+        </div>
+      </div>
+    </header>
 
+    <main class="grid" id="projects">
       <!-- Card 1 -->
       <div class="card">
         <img src="../../assets/11_PX_DRG.jpg" alt="Drag Force Simulator Screenshot">
@@ -172,7 +422,64 @@
           <a href="/gaurawme/sims/dist/projectile_sim.html" target="_blank">Launch App</a>
         </div>
       </div>
-
     </main>
+
+    <footer class="site-footer">
+      <p>Contact my Discord! schwifty@3661</p>
+    </footer>
+
+    <script>
+      // Mobile menu functionality
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const navLinks = document.getElementById('nav-links');
+      
+      mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        const icon = mobileMenuBtn.querySelector('i');
+        if (navLinks.classList.contains('active')) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-times');
+        } else {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+      });
+
+      // Close mobile menu when clicking on links
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('active');
+          const icon = mobileMenuBtn.querySelector('i');
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        });
+      });
+
+      // Hide navbar on scroll
+      let lastScrollTop = 0;
+      const navbar = document.getElementById('main-header');
+      const hideDelay = 1500;
+      let hideTimeout;
+
+      function handleScroll() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        clearTimeout(hideTimeout);
+        
+        if (navLinks.classList.contains('active')) {
+          return;
+        }
+        
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+          hideTimeout = setTimeout(() => {
+            navbar.classList.add('hidden');
+          }, hideDelay);
+        } else {
+          navbar.classList.remove('hidden');
+        }
+        lastScrollTop = scrollTop;
+      }
+
+      window.addEventListener('scroll', handleScroll);
+    </script>
   </body>
 </html>
