@@ -101,49 +101,21 @@
         color: var(--primary-color);
         margin-bottom: 0.75rem;
       }
-      .split-container {
-        display: flex;
+      .sim-container {
         width: 100%;
         max-width: 1400px;
-        height: 80vh;
-        min-height: 700px;
-        margin-bottom: 2rem;
-        gap: 20px;
-      }
-      .sim-panel {
-        flex: 2;
-        flex-direction: column;
-      }
-      .form-panel {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-      }
-      [data-theme="dark"] {
-        --certificate: #222;
-      }
-      .certificate-container {
-        background: var(--certificate-bg);
-        color: #000;
-      }
-      .sim-panel .sim-container {
-        flex: 1;
-        min-height: 400px;
-        height: auto;
-        max-height: 102%;
-        max-width: 98%;
-      }
-      .sim-container {
-        flex: 1;
+        height: 60vh;
+        min-height: 500px;
         border-radius: 16px;
         box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         background: var(--card-bg);
         overflow: hidden;
         position: relative;
-        transition: background 0.4s, box-shadow 0.3s ease, border-radius 0.3s ease;
+        transition: background 0.4s, box-shadow 0.3s ease !important;
         display: flex;
         flex-direction: column;
         padding: 1rem;
+        margin-bottom: 2rem;
       }
       .canvas-container {
         flex: 1;
@@ -175,9 +147,8 @@
         opacity: 0.9;
       }
       .form-container {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
+        width: 100%;
+        max-width: 1400px;
         border-radius: 12px;
         background: var(--card-bg);
         box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -194,15 +165,6 @@
         margin-bottom: 1.5rem;
         border-top: 1px solid #ddd;
         padding-top: 1.5rem;
-      }
-      .graph-container {
-        margin-top: 1.5rem;
-        margin-bottom: 1.5rem;
-        height: 250px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 10px;
-        background: var(--card-bg);
       }
       .form-title {
         font-size: 1.4rem;
@@ -428,17 +390,8 @@
         }
       }
       @media (max-width: 900px) {
-        .split-container {
-          flex-direction: column;
-          height: auto;
-          min-height: auto;
-        }
-        .sim-panel, .form-panel {
-          flex: none;
-          height: 500px;
-        }
-        .sim-panel {
-          margin-bottom: 20px;
+        .sim-container {
+          height: 400px;
         }
       }
     </style>
@@ -490,145 +443,175 @@
         </p>
       </div>
     </div>
-    <div class="split-container">
-      <div class="sim-panel">
-        <div class="sim-container">
-          <div id="root"></div>
+    
+    <!-- Simulation Container - Full Width -->
+    <div class="sim-container">
+      <div id="root"></div>
+    </div>
+
+    <!-- Form Container - Full Width -->
+    <div class="form-container">
+      <h2 class="form-title">Projectile Data Analysis</h2>
+
+      <div class="data-table-container">
+        <h3 class="data-table-title">Height vs. Time Data Table</h3>
+        <p class="question-text" style="font-size: 0.9rem; margin-bottom: 1.5rem;">
+          Holding gravity to a constant -10 m/s^2, change the value of h0 and enter time of flight values from your observations:
+        </p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Height (m)</th>
+              <th>Time (s)</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="data-table-body">
+          </tbody>
+        </table>
+        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 1rem;">
+          <button id="add-row-btn" class="check-table-btn">Add Data Point</button>
+          <button id="check-table" class="check-table-btn">Check Values</button>
         </div>
       </div>
-      <div class="form-panel">
-        <div class="form-container">
-          <h2 class="form-title">Projectile Data Analysis</h2>
-          <div class="form-group">
-            <label for="initial-height" class="form-label">Initial Height (meters):</label>
-            <input type="number" id="initial-height" class="form-input" value="45" min="5" max="100">
-          </div>
-          <div class="form-group">
-            <label for="initial-velocity" class="form-label">Initial Velocity (m/s):</label>
-            <input type="number" id="initial-velocity" class="form-input" value="20" min="5" max="50">
-          </div>
-          <div class="form-group">
-            <label for="gravity" class="form-label">Gravity (m/s²):</label>
-            <input type="number" id="gravity" class="form-input" value="10" min="1" max="20">
-          </div>
-          <button id="apply-btn" class="submit-btn">Apply Parameters</button>
-          <div class="data-table-container">
-            <h3 class="data-table-title">Height vs. Time Data Table</h3>
-            <p class="question-text" style="font-size: 0.9rem; margin-bottom: 1rem;">
-              Holding gravity to a constant -10 m/s^2, change the value of h0 and enter time of flight values from your observations:
+
+      <div class="data-table-container">
+        <h3 class="data-table-title">Time vs. Gravity Data Table</h3>
+        <p class="question-text" style="font-size: 0.9rem; margin-bottom: 1.5rem;">
+          Holding height to a constant +45 m, change the value of g and enter time of flight values from your observations:
+        </p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Gravity (m/s²)</th>
+              <th>Time (s)</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="gravity-table-body">
+          </tbody>
+        </table>
+        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 1rem;">
+          <button id="add-gravity-row-btn" class="check-table-btn">Add Data Point</button>
+          <button id="check-gravity-table" class="check-table-btn">Check Values</button>
+        </div>
+      </div>
+      
+      <!-- Taller Graphs Section -->
+      <div class="section-spacer"></div>
+      <div class="graph-container">
+        <div class="graph-tabs">
+          <div class="graph-tab active" data-graph="height-time">Height vs Time</div>
+          <div class="graph-tab" data-graph="time-gravity">Time vs Gravity</div>
+        </div>
+        <canvas id="data-chart"></canvas>
+      </div>
+      
+      <div class="section-spacer"></div>
+      <div class="form-group">
+        <label for="gravity-analysis-select" class="form-label">
+          Which scaling between gravity and time of flight would produce a linear graph?
+        </label>
+        <select id="gravity-analysis-select" class="form-select">
+          <option value="">Select an option</option>
+          <option value="time-gravity">Time vs. Gravity</option>
+          <option value="time2-gravity">Time² vs. Gravity</option>
+          <option value="time2-1overg">Time² vs. 1/Gravity</option>
+        </select>
+        <button id="check-gravity-analysis" class="submit-btn" style="margin-top: 1rem;">Check Gravity Scaling</button>
+        <div id="gravity-feedback" class="feedback"></div>
+      </div>
+      
+      <!-- Taller Scaling Chart -->
+      <div class="graph-container">
+        <canvas id="scaling-chart"></canvas>
+      </div>
+      
+      <div class="section-spacer"></div>
+      <div class="height-scaling-options">
+        <div class="form-group">
+          <label for="height-analysis-select" class="form-label">
+            Which scaling between height and time would produce a linear graph?
+          </label>
+          <select id="height-analysis-select" class="form-select">
+            <option value="">Select an option</option>
+            <option value="height-time">Height vs. Time</option>
+            <option value="height-timesq">Height vs. Time²</option>
+            <option value="sqrt-height-time">√Height vs. Time</option>
+          </select>
+          <button id="check-height-analysis" class="submit-btn" style="margin-top: 1rem;">Check Height Scaling</button>
+          <div id="height-feedback" class="feedback"></div>
+        </div>
+      </div>
+      
+      <!-- Taller Scaling Chart for Height -->
+      <div class="graph-container">
+        <canvas id="scaling-chart-height"></canvas>
+      </div>
+      
+      <div class="section-spacer"></div>
+      <div class="form-group">
+        <label for="analysis-select" class="form-label">Which relationship would produce a linear graph?</label>
+        <select id="analysis-select" class="form-select">
+          <option value="">Select an option</option>
+          <option value="height-time">Height vs. Time</option>
+          <option value="height-timesq">Height vs. Time²</option>
+          <option value="velocity-time">Velocity vs. Time</option>
+          <option value="velocity-height">Velocity vs. Height</option>
+        </select>
+        <button id="check-analysis" class="submit-btn" style="margin-top: 1rem;">Check Analysis</button>
+        <div id="feedback" class="feedback"></div>
+      </div>
+
+      <div class="section-spacer"></div>
+      <div class="form-group">
+        <label class="form-label">
+          From the relation, find the constant of proportionality:
+        </label>
+        <input type="text" id="proportionality-input" class="form-input" placeholder="Enter value (e.g., sqrt(2))">
+        <button id="check-proportionality" class="submit-btn" style="margin-top: 1rem;">Check Answer</button>
+        <div id="proportionality-feedback" class="feedback"></div>
+      </div>
+
+      <div class="section-spacer"></div>
+      <div class="form-group">
+        <label class="form-label">Final Step:</label>
+        <p class="question-text">
+          Use your scaling observations to derive the formula for time of flight:
+        </p>
+        <input type="text" id="formula-input" class="form-input" placeholder="e.g., t = √(2h/g)" style="margin-top: 1rem;">
+        <button id="check-formula" class="submit-btn" style="margin-top: 1rem;">Check Formula</button>
+        <div id="formula-feedback" class="feedback"></div>
+      </div>
+
+      <!-- PDF Embed Section -->
+      <div class="section-spacer"></div>
+      <div class="pdf-container" style="border-top: 2px solid var(--primary-color); padding-top: 2rem;">
+        <h3 class="form-title">Additional Resources</h3>
+        <p class="question-text" style="text-align: center; margin-bottom: 1.5rem;">
+          Download the complete lab worksheet for offline use:
+        </p>
+        <div style="width: 100%; height: 600px; border: 2px solid #ddd; border-radius: 8px; overflow: hidden; margin-bottom: 1.5rem;">
+          <iframe 
+            src="./pdf-assets/AP Physics 1 Projectile Motion Time of Flight.pdf" 
+            width="100%" 
+            height="100%" 
+            style="border: none;"
+            title="Projectile Motion Lab Worksheet"
+          >
+            <p>Your browser does not support PDFs. 
+              <a href="./assets/lab-worksheet.pdf">Download the PDF</a> instead.
             </p>
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Height (m)</th>
-                  <th>Time (s)</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="data-table-body">
-              </tbody>
-            </table>
-            <button id="add-row-btn" class="check-table-btn" style="margin-top: 10px;">Add Data Point</button>
-            <button id="check-table" class="check-table-btn" style="margin-top: 10px;">Check Values</button>
-          </div>
-          <div class="data-table-container" id="gravity-table-container">
-            <h3 class="data-table-title">Time vs. Gravity Data Table</h3>
-            <p class="question-text" style="font-size: 0.9rem; margin-bottom: 1rem;">
-              Holding height to a constant +45 m, change the value of g and enter time of flight values from your observations:
-            </p>
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Gravity (m/s²)</th>
-                  <th>Time (s)</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="gravity-table-body">
-              </tbody>
-            </table>
-            <button id="add-gravity-row-btn" class="check-table-btn" style="margin-top: 10px;">Add Data Point</button>
-            <button id="check-gravity-table" class="check-table-btn" style="margin-top: 10px;">Check Values</button>
-          </div>
-          <div class="graph-container">
-            <div class="graph-tabs">
-              <div class="graph-tab active" data-graph="height-time">Height vs Time</div>
-              <div class="graph-tab" data-graph="time-gravity">Time vs Gravity</div>
-            </div>
-            <canvas id="data-chart"></canvas>
-          </div>
-          <div class="form-group" style="margin-top: 1.5rem;">
-            <label for="gravity-analysis-select" class="form-label">
-              Which scaling between gravity and time of flight would produce a linear graph?
-            </label>
-            <select id="gravity-analysis-select" class="form-select">
-              <option value="">Select an option</option>
-              <option value="time-gravity">Time vs. Gravity</option>
-              <option value="time2-gravity">Time² vs. Gravity</option>
-              <option value="time2-1overg">Time² vs. 1/Gravity</option>
-            </select>
-          </div>
-          <button id="check-gravity-analysis" class="submit-btn">Check Gravity Scaling</button>
-          <div id="gravity-feedback" class="feedback"></div>
-          <div class="graph-container" id="scaling-preview" style="margin-top: 1rem; height: 250px;">
-            <canvas id="scaling-chart"></canvas>
-          </div>
-          <div class="height-scaling-options">
-            <div class="form-group">
-              <label for="height-analysis-select" class="form-label">
-                Which scaling between height and time would produce a linear graph?
-              </label>
-              <select id="height-analysis-select" class="form-select">
-                <option value="">Select an option</option>
-                <option value="height-time">Height vs. Time</option>
-                <option value="height-timesq">Height vs. Time²</option>
-                <option value="sqrt-height-time">√Height vs. Time</option>
-              </select>
-            </div>
-            <button id="check-height-analysis" class="submit-btn">Check Height Scaling</button>
-            <div id="height-feedback" class="feedback"></div>
-          </div>
-          <div class="graph-container" id="scaling-preview" style="margin-top: 1rem; height: 250px;">
-            <canvas id="scaling-chart-height"></canvas>
-          </div>
-          <div class="form-group" style="margin-top: 1.5rem;">
-            <label for="analysis-select" class="form-label">Which relationship would produce a linear graph?</label>
-            <select id="analysis-select" class="form-select">
-              <option value="">Select an option</option>
-              <option value="height-time">Height vs. Time</option>
-              <option value="height-timesq">Height vs. Time²</option>
-              <option value="velocity-time">Velocity vs. Time</option>
-              <option value="velocity-height">Velocity vs. Height</option>
-            </select>
-          </div>
-          <button id="check-analysis" class="submit-btn">Check Analysis</button>
-          <div id="feedback" class="feedback">
-          </div>
-          <div class="form-group" style="margin-top: 2rem;">
-            <label class="form-label">
-              From the relation, find the constant of proportionality:
-            </label>
-            <input type="text" id="proportionality-input" class="form-input" placeholder="Enter value (e.g., sqrt(2))">
-            <button id="check-proportionality" class="submit-btn">Check Answer</button>
-            <div id="proportionality-feedback" class="feedback"></div>
-          </div>
-          <div class="form-group" style="margin-top: 1.5rem;">
-            <label class="form-label">Final Step:</label>
-            <p class="question-text">
-              Use your scaling observations to derive the formula for time of flight:
-            </p>
-          </div>
-          <div class="form-group" style="margin-top: 2rem;">
-            <label class="form-label">
-              Enter the complete formula for time of flight (use 'h' for height and 'g' for gravity):
-            </label>
-            <input type="text" id="formula-input" class="form-input" placeholder="e.g., t = √(2h/g)">
-            <button id="check-formula" class="submit-btn">Check Formula</button>
-            <div id="formula-feedback" class="feedback"></div>
-          </div>
+          </iframe>
+        </div>
+        <div style="text-align: center;">
+          <a href="./assets/lab-worksheet.pdf" download class="submit-btn" style="display: inline-block; text-decoration: none;">
+            Download PDF Worksheet
+          </a>
         </div>
       </div>
     </div>
+
     <div id="certificate" style="display: none; margin: 2rem auto; max-width: 800px; background: rgb(124, 112, 112); padding: 2rem; border: 10px solid var(--primary-color); text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
       <h1 style="color: var(--primary-color); font-size: 2.5rem; margin-bottom: 1rem;">Certificate of Completion</h1>
       <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">This certifies that</p>
@@ -639,12 +622,9 @@
         <p>Physics Education System</p>
       </div>
     </div>
+
     <script>
       const darkModeBtn = document.getElementById('darkmode-btn');
-      const applyBtn = document.getElementById('apply-btn');
-      const initialHeightInput = document.getElementById('initial-height');
-      const initialVelocityInput = document.getElementById('initial-velocity');
-      const gravityInput = document.getElementById('gravity');
       const addRowBtn = document.getElementById('add-row-btn');
       const checkTableBtn = document.getElementById('check-table');
       const addGravityRowBtn = document.getElementById('add-gravity-row-btn');
@@ -662,6 +642,7 @@
       let gravityDataPoints = [];
       let currentGraph = 'height-time';
       let dataChart = null;
+
       function init() {
         createDataTableRows(5);
         createGravityTableRows(5);
@@ -670,15 +651,7 @@
           console.log("Original simulation loaded");
         }, 1000);
       }
-      function applyParameters() {
-        initialHeight = parseFloat(initialHeightInput.value);
-        initialVelocity = parseFloat(initialVelocityInput.value);
-        gravity = parseFloat(gravityInput.value);
-        console.log("Parameters updated:", {initialHeight, initialVelocity, gravity});
-        dataPoints = [];
-        gravityDataPoints = [];
-        updateChart();
-      }
+
       function createDataTableRows(count) {
         dataTableBody.innerHTML = '';
         for (let i = 0; i < count; i++) {
@@ -691,6 +664,7 @@
           dataTableBody.appendChild(row);
         }
       }
+
       function createGravityTableRows(count) {
         gravityTableBody.innerHTML = '';
         for (let i = 0; i < count; i++) {
@@ -703,6 +677,7 @@
           gravityTableBody.appendChild(row);
         }
       }
+
       function addDataRow() {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -712,6 +687,7 @@
         `;
         dataTableBody.appendChild(row);
       }
+
       function addGravityDataRow() {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -721,6 +697,7 @@
         `;
         gravityTableBody.appendChild(row);
       }
+
       function checkDataValues() {
         const heightInputs = document.querySelectorAll('.height-input');
         const timeInputs = document.querySelectorAll('.time-input');
@@ -748,6 +725,7 @@
         updateChart();
         dataTableCompleted = dataPoints.length >= 3;
       }
+
       function checkGravityDataValues() {
         const gravityInputs = document.querySelectorAll('.gravity-input');
         const timeGravityInputs = document.querySelectorAll('.time-gravity-input');
@@ -775,6 +753,7 @@
         updateChart();
         gravityTableCompleted = gravityDataPoints.length >= 3;
       }
+
       function switchGraph(graphType) {
         currentGraph = graphType;
         updateChart();
@@ -786,6 +765,7 @@
           }
         });
       }
+
       function initChart() {
         const ctx = document.getElementById('data-chart').getContext('2d');
         dataChart = new Chart(ctx, {
@@ -820,6 +800,7 @@
           }
         });
       }
+
       function updateChart() {
         if (!dataChart) return;
         if (currentGraph === 'height-time') {
@@ -853,6 +834,7 @@
         }
         dataChart.update();
       }
+
       function checkAnalysis() {
         const selectedValue = analysisSelect.value;
         if (selectedValue === "height-timesq") {
@@ -866,13 +848,18 @@
           feedbackElement.className = "feedback incorrect";
         }
       }
+
       function createParticles() {
         const particlesContainer = document.getElementById('particles');
         const particleCount = 50;
+
+        particlesContainer.innerHTML = '';
+        
         for (let i = 0; i < particleCount; i++) {
           createParticle(particlesContainer);
         }
       }
+
       function createParticle(container) {
         const particle = document.createElement('div');
         particle.classList.add('particle');
@@ -880,6 +867,7 @@
         const posX = Math.random() * 100;
         const duration = Math.random() * 20 + 10;
         const delay = Math.random() * 20;
+        
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
         particle.style.left = `${posX}%`;
@@ -887,34 +875,101 @@
         particle.style.animationDuration = `${duration}s`;
         particle.style.animationDelay = `${delay}s`;
         particle.style.opacity = Math.random() * 0.5 + 0.2;
+
+        particle.style.animationPlayState = 'running';
+        
         container.appendChild(particle);
+
         particle.addEventListener('animationiteration', () => {
           particle.style.left = `${Math.random() * 100}%`;
           particle.style.bottom = `-${size}px`;
           particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
         });
       }
+
+      // Fullscreen functionality
+      const fullscreenBtn = document.getElementById('fullscreen-btn');
+      const simContainer = document.querySelector('.sim-container');
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            // Enter fullscreen
+            simContainer.requestFullscreen().catch(err => {
+                console.error(`Error attempting to enable fullscreen: ${err.message}`);
+            });
+            document.body.classList.add('fullscreen-active');
+            
+            // Force immediate fullscreen styling
+            setTimeout(() => {
+                simContainer.style.width = '100vw';
+                simContainer.style.height = '100vh';
+                simContainer.style.borderRadius = '0';
+            }, 0);
+        } else {
+            // Exit fullscreen
+            document.exitFullscreen();
+        }
+      }
+
+      document.addEventListener('fullscreenchange', () => {
+          if (!document.fullscreenElement) {
+              // Exit fullscreen - remove classes and restore immediately
+              document.body.classList.remove('fullscreen-active');
+              
+              // Immediately restore original styling
+              setTimeout(() => {
+                  simContainer.style.width = '';
+                  simContainer.style.height = '';
+                  simContainer.style.borderRadius = '';
+                  simContainer.style.position = '';
+                  simContainer.style.top = '';
+                  simContainer.style.left = '';
+                  simContainer.style.zIndex = '';
+                  
+                  // Force reflow to ensure immediate rendering
+                  simContainer.offsetHeight;
+              }, 0);
+          } else {
+              // Enter fullscreen - ensure fullscreen styling is applied
+              document.body.classList.add('fullscreen-active');
+              setTimeout(() => {
+                  simContainer.style.width = '100vw';
+                  simContainer.style.height = '100vh';
+                  simContainer.style.borderRadius = '0';
+              }, 0);
+          }
+      });
+
+      if (fullscreenBtn) {
+          fullscreenBtn.addEventListener('click', (e) => {
+              e.preventDefault();
+              toggleFullscreen();
+          });
+      }
+
+      // Initialize everything when DOM is loaded
       document.addEventListener('DOMContentLoaded', () => {
         init();
         setTimeout(createParticles, 1000);
-        const fullscreenBtn = document.getElementById('fullscreen-btn');
-        const simContainer = document.querySelector('.sim-container');
-        function toggleFullscreen() {
-          if (!document.fullscreenElement) {
-            simContainer.requestFullscreen().catch(err => {
-              console.error(`Error attempting to enable fullscreen: ${err.message}`);
-            });
-            fullscreenBtn.textContent = 'Exit Fullscreen';
-          } else {
-            document.exitFullscreen();
-            fullscreenBtn.textContent = 'Enter Fullscreen';
+        
+        // Add visibility change listener to handle tab switching for particles
+        document.addEventListener('visibilitychange', function() {
+          if (!document.hidden) {
+            setTimeout(() => {
+              createParticles();
+            }, 100);
           }
-        }
-        fullscreenBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          toggleFullscreen();
+        });
+
+        // Also reset particles on page focus (additional safety)
+        window.addEventListener('focus', function() {
+          setTimeout(() => {
+            createParticles();
+          }, 500);
         });
       });
+
+      // Event listeners
       darkModeBtn.addEventListener('click', function() {
         document.body.classList.toggle('dark-mode');
         const particles = document.querySelectorAll('.particle');
@@ -927,21 +982,25 @@
         });
         darkModeBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️ Light Mode' : '🌙 Dark Mode';
       });
-      applyBtn.addEventListener('click', applyParameters);
+
       addRowBtn.addEventListener('click', addDataRow);
       checkTableBtn.addEventListener('click', checkDataValues);
       addGravityRowBtn.addEventListener('click', addGravityDataRow);
       checkGravityTableBtn.addEventListener('click', checkGravityDataValues);
       checkAnalysisBtn.addEventListener('click', checkAnalysis);
+      
       graphTabs.forEach(tab => {
         tab.addEventListener('click', () => {
           switchGraph(tab.dataset.graph);
         });
       });
+
+      // Additional analysis functionality
       const gravityAnalysisSelect = document.getElementById('gravity-analysis-select');
       const checkGravityAnalysisBtn = document.getElementById('check-gravity-analysis');
       const gravityFeedbackElement = document.getElementById('gravity-feedback');
       let scalingChart = null;
+
       function initScalingChart() {
         const ctx = document.getElementById('scaling-chart').getContext('2d');
         scalingChart = new Chart(ctx, {
@@ -957,6 +1016,7 @@
           }
         });
       }
+
       function updateScalingChart(option) {
         if (!scalingChart) return;
         let dataset = [];
@@ -988,6 +1048,7 @@
         scalingChart.options.scales.y.title.text = yLabel;
         scalingChart.update();
       }
+
       function checkGravityAnalysis() {
         const selected = gravityAnalysisSelect.value;
         if (selected === "time2-1overg") {
@@ -998,22 +1059,28 @@
         }
         updateScalingChart(selected);
       }
+
       document.addEventListener('DOMContentLoaded', () => {
         initScalingChart();
       });
+
       checkGravityAnalysisBtn.addEventListener('click', checkGravityAnalysis);
+
       const proportionalityInput = document.getElementById('proportionality-input');
       const checkProportionalityBtn = document.getElementById('check-proportionality');
       const proportionalityFeedback = document.getElementById('proportionality-feedback');
+
       function normalizeMathInput(str) {
         return str.replace(/\s+/g, '').toLowerCase()
                   .replace(/√/g, 'sqrt')
                   .replace(/\\sqrt/g, 'sqrt');
       }
+
       const heightAnalysisSelect = document.getElementById('height-analysis-select');
       const checkHeightAnalysisBtn = document.getElementById('check-height-analysis');
       const heightFeedbackElement = document.getElementById('height-feedback');
       let scalingChartHeight = null;
+
       function initScalingChartHeight() {
         const ctx = document.getElementById('scaling-chart-height').getContext('2d');
         scalingChartHeight = new Chart(ctx, {
@@ -1029,6 +1096,7 @@
           }
         });
       }
+
       function updateScalingChartHeight(option) {
         if (!scalingChartHeight) return;
         let dataset = [];
@@ -1060,6 +1128,7 @@
         scalingChartHeight.options.scales.y.title.text = yLabel;
         scalingChartHeight.update();
       }
+
       function checkHeightAnalysis() {
         const selected = heightAnalysisSelect.value;
         if (selected === "height-timesq") {
@@ -1070,6 +1139,7 @@
         }
         updateScalingChartHeight(selected);
       }
+
       function init() {
         createDataTableRows(5);
         createGravityTableRows(5);
@@ -1080,7 +1150,9 @@
           console.log("Original simulation loaded");
         }, 1000);
       }
+
       checkHeightAnalysisBtn.addEventListener('click', checkHeightAnalysis);
+
       function checkProportionality() {
         let userAns = normalizeMathInput(proportionalityInput.value);
         if (userAns === "sqrt(2)" || userAns === "√2" || userAns === "1.414" || userAns === "1.4142") {
@@ -1093,7 +1165,9 @@
           MathJax.typesetPromise();
         }
       }
+
       checkProportionalityBtn.addEventListener('click', checkProportionality);
+
       let userName = "";
       let dataTableCompleted = false;
       let gravityTableCompleted = false;
@@ -1101,10 +1175,12 @@
       let formulaCompleted = false;
       let gravityAnalysisCompleted = false;
       let heightAnalysisCompleted = false;
+
       function checkAllTasksCompleted() {
         return dataTableCompleted && gravityTableCompleted && proportionalityCompleted && 
                formulaCompleted && gravityAnalysisCompleted && heightAnalysisCompleted;
       }
+
       function showCertificateIfCompleted() {
         if (checkAllTasksCompleted()) {
           document.getElementById('certificate-name').textContent = userName;
@@ -1115,6 +1191,7 @@
           }, 1000);
         }
       }
+
       function checkFormula() {
         let userFormula = document.getElementById('formula-input').value;
         userFormula = userFormula.replace(/\s+/g, '').toLowerCase();
@@ -1142,6 +1219,7 @@
           MathJax.typesetPromise();
         }
       }
+
       document.getElementById('start-btn').addEventListener('click', function() {
         userName = document.getElementById('user-name').value.trim();
         if (userName) {
@@ -1150,6 +1228,7 @@
           alert('Please enter your name to continue.');
         }
       });
+
       document.getElementById('check-formula').addEventListener('click', checkFormula);
       document.getElementById('user-name').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
@@ -1157,51 +1236,88 @@
         }
       });
     </script>
-    <script>
-      const fullscreenBtn = document.getElementById('fullscreen-btn');
-      const simContainer = document.querySelector('.sim-container');
-      function toggleFullscreen() {
-        if (!document.fullscreenElement) {
-          simContainer.requestFullscreen().catch(err => {
-            console.error(`Error attempting to enable fullscreen: ${err.message}`);
-          });
-          fullscreenBtn.textContent = 'Exit Fullscreen';
-          document.body.classList.add('fullscreen-active');
-        } else {
-          document.exitFullscreen();
-          fullscreenBtn.textContent = 'Enter Fullscreen';
-          document.body.classList.remove('fullscreen-active');
-        }
-      }
-      document.addEventListener('fullscreenchange', () => {
-        if (!document.fullscreenElement) {
-          fullscreenBtn.textContent = 'Enter Fullscreen';
-          document.body.classList.remove('fullscreen-active');
-        }
-      });
-      fullscreenBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        toggleFullscreen();
-      });
-    </script>
+
     <style>
+      
+      /* Improved spacing */
+.section-spacer {
+  height: 2rem;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+}
+
+.data-table-container {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border-top: 1px solid #ddd;
+  padding-top: 2rem;
+}
+
+.graph-container {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  height: 350px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background: var(--card-bg);
+}
+
+.question-text {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.submit-btn {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.feedback {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+/* Fullscreen fixes */
       body.fullscreen-active .sim-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 9999;
-        border-radius: 0;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 9999 !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        transform: none !important;
       }
+
       body.fullscreen-active .header-container,
-      body.fullscreen-active .form-panel,
-      body.fullscreen-active footer {
-        display: none;
+      body.fullscreen-active .form-container,
+
+
+      /* Nuclear option - disable ALL transitions and animations during fullscreen */
+      body.fullscreen-active,
+      body.fullscreen-active * {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
       }
-      body.fullscreen-active .split-container {
-        height: 100vh;
-        margin: 0;
+
+      /* Ensure normal transitions work when not in fullscreen */
+      .sim-container {
+        transition: background 0.4s, box-shadow 0.3s ease !important;
       }
     </style>
     <script type="module" crossorigin src="./assets/projmot.js"></script>
