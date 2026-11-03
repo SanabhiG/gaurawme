@@ -2,103 +2,131 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Ultrasound Research</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
-  <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="/css/style.css" />
-
-  <!-- AOS (Animate on Scroll) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
-
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-
-
+  <meta name="theme-color" content="#1A202C" />
+  <title>Resume | Sanabhi Gauraw</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #4FD1C5,#2D3748);
+      min-height: 100vh;
       margin: 0;
-      padding: 2rem;
-      color: #222;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: auto;
-      background: white;
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      font-size: 2.4rem;
-      text-align: center;
-      background: linear-gradient(to right,#4FD1C5, #2D3748);
-      -webkit-text-fill-color: transparent;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-      border-radius: 12px;
-      margin: 1rem auto;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    ul {
-      margin-top: 2rem;
-      list-style: none;
-      padding: 0;
-    }
-
-    ul li {
-      font-size: 1.1rem;
-      background: #f0f4f8;
-      padding: 0.8rem 1rem;
-      border-radius: 10px;
-      margin-bottom: 0.6rem;
+      padding: 1rem;
       display: flex;
+      flex-direction: column;
+      background: #1A202C;
+      color: #E2E8F0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+      animation: page-arrive 0.35s ease-out both;
+    }
+
+    body.page-leaving {
+      animation: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+
+    @keyframes page-arrive {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    header {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto 1rem;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
+      gap: 1rem;
     }
 
-    ul li i {
-      margin-right: 0.8rem;
+    a {
       color: #4FD1C5;
+      text-decoration: none;
     }
 
-    canvas {
-      max-width: 100%;
-      margin-top: 2rem;
+    a:hover,
+    a:focus-visible {
+      color: #F6AD55;
     }
 
-    footer {
-      margin-top: 4rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #888;
+    .resume-viewer {
+      width: 100%;
+      max-width: 1100px;
+      flex: 1;
+      min-height: 70vh;
+      margin: 0 auto;
+      border: 1px solid #2D3748;
+      border-radius: 6px;
+      background: #2D3748;
+    }
+
+    .resume-viewer iframe {
+      display: block;
+      width: 100%;
+      height: calc(100vh - 7rem);
+      min-height: 70vh;
+      border: 0;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 0.75rem;
+      }
+
+      header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .resume-viewer iframe {
+        height: calc(100vh - 8rem);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body {
+        animation: none;
+      }
+      body.page-leaving {
+        transition: none;
+      }
     }
   </style>
 </head>
 
 <body>
-
-
-  <div style="margin-top: 2rem; text-align: center;">
-  
-    <iframe 
-      src="/assets/Resume_SG.pdf"
-      width="750px" 
-      height="900px"
-      style="display: inline-block; border: none; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+  <header>
+    <a href="/">← Back to home</a>
+    <a href="/assets/resume.pdf" target="_blank" rel="noopener noreferrer">Open PDF in new tab</a>
+  </header>
+  <main class="resume-viewer">
+    <iframe src="/assets/resume.pdf" title="Sanabhi Gauraw resume">
+      <p>Your browser can't display the embedded PDF. <a href="/assets/resume.pdf">Download the resume PDF</a>.</p>
     </iframe>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script>AOS.init();</script>
-
+  </main>
+  <script>
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href]');
+      if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target || link.hasAttribute('download')) return;
+      const destination = new URL(link.href, window.location.href);
+      if (destination.origin !== window.location.origin || destination.pathname === window.location.pathname) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      event.preventDefault();
+      document.body.classList.add('page-leaving');
+      window.setTimeout(() => window.location.assign(destination.href), 180);
+    });
+  </script>
 </body>
 </html>
