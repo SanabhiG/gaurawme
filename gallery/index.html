@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1A202C" />
+    <meta name="description" content="A visual archive of Sanabhi Gauraw's research, robotics, and academic events." />
+    <title>Gallery | Sanabhi Gauraw</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: #1A202C;
+        color: #E2E8F0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        line-height: 1.65;
+        animation: arrive 0.35s ease-out both;
+      }
+
+      body.page-leaving {
+        animation: none;
+        opacity: 0;
+        transform: translateY(8px);
+        transition: opacity 0.18s ease, transform 0.18s ease;
+      }
+
+      @keyframes arrive {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      a {
+        color: #4FD1C5;
+        text-decoration: none;
+      }
+
+      a:hover,
+      a:focus-visible {
+        color: #81E6D9;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.85rem max(1.25rem, calc((100% - 840px) / 2));
+        border-bottom: 1px solid #2D3748;
+        background: rgba(26, 32, 44, 0.96);
+        backdrop-filter: blur(10px);
+      }
+
+      .back-link {
+        font-size: 0.9rem;
+      }
+
+      main {
+        width: min(100% - 2rem, 840px);
+        margin: 4rem auto 6rem;
+      }
+
+      .intro {
+        max-width: 42rem;
+        margin-bottom: 3rem;
+      }
+
+      .eyebrow {
+        margin: 0 0 0.4rem;
+        color: #4FD1C5;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 6vw, 2.8rem);
+        line-height: 1.2;
+      }
+
+      .intro p:last-child {
+        margin-bottom: 0;
+        color: #A0AEC0;
+      }
+
+      .event {
+        display: grid;
+        grid-template-columns: minmax(190px, 0.8fr) minmax(0, 1.2fr);
+        gap: 1.5rem;
+        align-items: start;
+        padding: 2rem 0;
+        border-top: 1px solid #2D3748;
+        scroll-margin-top: 5rem;
+      }
+
+      .event-image {
+        display: block;
+        width: 100%;
+        max-height: 230px;
+        border: 1px solid #3B4658;
+        border-radius: 6px;
+        object-fit: cover;
+      }
+
+      .event-placeholder {
+        min-height: 180px;
+        display: grid;
+        place-items: center;
+        border: 1px solid #3B4658;
+        border-radius: 6px;
+        background: #202A38;
+        color: #4FD1C5;
+        font-size: 2rem;
+      }
+
+      .event h2 {
+        margin: 0 0 0.5rem;
+        font-size: 1.2rem;
+        line-height: 1.35;
+      }
+
+      .event p {
+        margin: 0.4rem 0;
+        color: #A0AEC0;
+      }
+
+      .event ul {
+        margin: 0.75rem 0 0;
+        padding-left: 1.2rem;
+        color: #CBD5E0;
+      }
+
+      .event li + li {
+        margin-top: 0.3rem;
+      }
+
+      @media (max-width: 600px) {
+        .site-header {
+          padding: 0.8rem 1rem;
+        }
+
+        main {
+          margin-top: 2.5rem;
+        }
+
+        .event {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+
+        .event-image {
+          max-height: 300px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        body {
+          animation: none;
+        }
+
+        body.page-leaving {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="back-link" href="../#gallery"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back to main site</a>
+      <a href="../">Sanabhi Gauraw</a>
+    </header>
+    <main>
+      <div class="intro">
+        <p class="eyebrow">Research · Robotics · Academics</p>
+        <h1>Events &amp; experiences</h1>
+        <p>A vertical archive of the projects and events featured in the homepage carousel.</p>
+      </div>
+
+      <article class="event" id="acoustics-research">
+        <img class="event-image" src="../assets/11_SF.JPEG" alt="Acoustics research presentation" />
+        <div>
+          <h2>Acoustics Research</h2>
+          <p>Investigated acoustic pulse propagation in glycerin-water mixtures using elastography.</p>
+          <ul>
+            <li>Collected more than 200 acoustic datasets.</li>
+            <li>Designed a fluid chamber with a single-transducer setup.</li>
+            <li>Used time-delay and FFT analysis to study elasticity; presented at regionals and qualified for the state science fair.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="event" id="unt-research">
+        <img class="event-image" src="../assets/UNTREM_10th.png" alt="Students at the UNT Research Experience and Mentorship program" />
+        <div>
+          <h2>UNT Research Experience &amp; Mentorship</h2>
+          <p>Studied elastic wave propagation under Dr. Tamanna Zaman using lab simulations and data collection.</p>
+          <ul>
+            <li>Modeled wave behavior through solids and liquids.</li>
+            <li>Processed and visualized data with Python.</li>
+            <li>Assisted with paper drafting and technical presentations.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="event" id="first-tech-challenge">
+        <img class="event-image" src="../assets/9_FTC_1.JPEG" alt="First Tech Challenge robotics team" />
+        <div>
+          <h2>FIRST Tech Challenge</h2>
+          <p>Led programming for autonomous and tele-operated competition systems.</p>
+          <ul>
+            <li>Built Java systems for vision tracking, autonomous pathing, and hardware abstraction.</li>
+            <li>Integrated OpenCV and AprilTag-based localization.</li>
+            <li>Advanced to regionals and earned Design and Control awards.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="event" id="science-bowl">
+        <div class="event-placeholder" aria-hidden="true"><i class="fas fa-brain"></i></div>
+        <div>
+          <h2>Regional Science Bowl</h2>
+          <p>Served as team captain through eight rounds of STEM competition.</p>
+          <ul>
+            <li>Organized study sessions across biology, chemistry, physics, and mathematics.</li>
+            <li>Mentored teammates in rapid-recall and problem-solving strategies.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="event" id="tjas">
+        <img class="event-image" src="../assets/11_TJAS.JPEG" alt="Texas Junior Academy of Sciences event" />
+        <div>
+          <h2>Texas Junior Academy of Science</h2>
+          <p>Presented physics and engineering research at a statewide symposium.</p>
+          <ul>
+            <li>Delivered structured 12-minute technical talks.</li>
+            <li>Earned awards in Physical Sciences, Physics, and Engineering II.</li>
+            <li>Defended research before academic and industry judges.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="event" id="first-robotics">
+        <img class="event-image" src="../assets/BBQ_Solo.jpeg" alt="FIRST Robotics Competition robot" />
+        <div>
+          <h2>FIRST Robotics Competition · Team 2714 BBQ</h2>
+          <p>Competed at the FRC World Championship as part of the Electrical &amp; Programming subteam.</p>
+          <ul>
+            <li>Reached the semifinals as alliance captain.</li>
+            <li>Received Excellence in Engineering, Autonomous, Innovation in Control, and District Event awards.</li>
+            <li>Led electrical and system integration for the competition robot.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="event" id="beal-fair">
+        <img class="event-image" src="../assets/11_Beal.JPEG" alt="Beal Bank Science and Engineering Fair" />
+        <div>
+          <h2>Beal Bank Science &amp; Engineering Fair</h2>
+          <p>Research fair presentation.</p>
+        </div>
+      </article>
+
+      <article class="event" id="texas-science-fair">
+        <img class="event-image" src="../assets/9_SF_CERT.jpg" alt="Texas Science and Engineering Fair recognition" />
+        <div>
+          <h2>Texas Science &amp; Engineering Fair</h2>
+          <p>Science and engineering fair participation.</p>
+        </div>
+      </article>
+
+      <article class="event" id="french-symposium">
+        <img class="event-image" src="../assets/TFS_Event.JPG" alt="Texas French Symposium event" />
+        <div>
+          <h2>Texas French Symposium</h2>
+          <p>Competed in French language, culture, and performance events.</p>
+          <ul>
+            <li>Participated in oral interpretation and extemporaneous speaking.</li>
+            <li>Earned a state-level medal for performance.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="event" id="usnco">
+        <img class="event-image" src="../assets/11_USNCO.JPEG" alt="United States National Chemistry Olympiad" />
+        <div>
+          <h2>U.S. National Chemistry Olympiad</h2>
+          <p>Qualified for the USNCO after regional and national chemistry examinations.</p>
+          <ul>
+            <li>Demonstrated proficiency in analytical, organic, and physical chemistry.</li>
+            <li>Advanced to the national-level competition.</li>
+          </ul>
+        </div>
+      </article>
+    </main>
+    <script>
+      document.addEventListener('click', event => {
+        const link = event.target.closest('a[href]');
+        if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target || link.hasAttribute('download')) return;
+        const destination = new URL(link.href, window.location.href);
+        if (destination.origin !== window.location.origin || destination.pathname === window.location.pathname) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        event.preventDefault();
+        document.body.classList.add('page-leaving');
+        window.setTimeout(() => window.location.assign(destination.href), 180);
+      });
+    </script>
+  </body>
+</html>
