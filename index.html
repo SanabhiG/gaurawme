@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#1A202C" />
     <title>Sanabhi Gauraw | Physics &amp; Software</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
       * {
@@ -681,6 +681,16 @@
         user-select: text;
         -webkit-user-select: text;
       }
+      #main-header,
+      .banner {
+        user-select: none;
+        -webkit-user-select: none;
+      }
+      .banner .email-popover,
+      .banner .email-popover code {
+        user-select: text;
+        -webkit-user-select: text;
+      }
       #dots-canvas {
         opacity: 0.08;
       }
@@ -901,8 +911,22 @@
         .banner {
           padding-top: 6rem;
         }
+        .nav-links {
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 1.25rem;
+          overflow-x: auto;
+          white-space: nowrap;
+          padding: 0.75rem 1rem;
+          scrollbar-width: none;
+        }
+        .nav-links::-webkit-scrollbar {
+          display: none;
+        }
         .nav-links a {
           margin: 0;
+          flex: 0 0 auto;
         }
       }
       @media (max-width: 480px) {
@@ -931,6 +955,7 @@
         }
       }
     </style>
+    <link rel="stylesheet" href="/css/site-theme.css" />
   </head>
   <body>
     <header class="nav" id="main-header">
